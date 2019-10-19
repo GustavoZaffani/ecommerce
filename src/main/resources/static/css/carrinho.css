@@ -1,0 +1,44 @@
+.step-content {
+    width: 90%;
+    border-radius: 20px;
+    background-color: #eeeeee91;
+}
+
+.card {
+    max-height: 90vh !important;
+}
+
+.btn-card {
+    width: 45%;
+}
+
+.border-title-confirm {
+    border-top: solid 1px black;
+    border-bottom: solid 1px black
+}
+
+.overflow-only-y {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.br-top-10 {
+    border-radius: 10px 10px 0 0;
+}
+
+.w-10 {
+    width: 10% !important;
+}
+
+.w-15 {
+    width: 15% !important;
+}
+
+.w-30 {
+    width: 30% !important;
+}
+
+.msg-add-user {
+    padding: 0;
+    display: contents;
+}

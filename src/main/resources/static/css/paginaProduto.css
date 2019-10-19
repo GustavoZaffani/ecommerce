@@ -1,0 +1,71 @@
+.frete {
+    background-color: #cedcff;
+    border: 1px solid dodgerblue;
+    border-radius: 15px;
+}
+
+.list-details {
+    padding: .35rem 0.25rem;
+    border: none;
+}
+
+#modalParcelas > div {
+    width: 300px;
+    border-radius: 10px;
+}
+
+#modalParcelas > div > div {
+    border-radius: 10px;
+}
+
+img-principal img{
+    height: 90%;
+}
+
+#img-others img {
+    width: 20%;
+}
+
+#details-product li:nth-child(odd) {
+    background-color: #fbf5f5;
+}
+
+#details-product ul,
+#title{
+    margin: 2% 0;
+}
+
+.card-produto > div {
+    width: 50%;
+}
+
+.img-secondary {
+    border-radius: 5px;
+    width: 15%;
+    height: 80%;
+}
+
+.size-block-images {
+    height: 85vh;
+}
+
+#parcelas > li {
+    padding: 0.50rem 0.25rem !important;
+}
+
+.max-width-90 {
+    max-width: 95%;
+}
+
+.divisor-cep {
+    height: 2px;
+    background-color: #1C2331;
+}
+
+.font-size-15 {
+    font-size: 1.5em;
+}
+
+.w-300 {
+    width: 300px !important;
+}

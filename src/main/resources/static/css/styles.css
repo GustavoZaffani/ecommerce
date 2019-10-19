@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css?family=Satisfy&display=swap');
+
+html,
+body,
+view {
+    height: 100%;
+}
+
+body {
+    overflow: visible;
+}
+
+.carousel {
+    height: 100%;
+}
+
+.carousel .carousel-inner {
+    height: 100%;
+}
+
+.carousel .carousel-inner .carousel-item,
+.carousel .carousel-inner .active {
+    height: 100%;
+}
+
+#listaJogos {
+    position: absolute;
+}
+
+.card-jogo {
+    margin: 8px;
+    height: 400px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.card-jogo:hover,
+.card-avaliacoes:hover {
+    box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.75);
+    transition: 500ms;
+}
+
+.card {
+    min-height: 400px;
+    max-height: 400px;
+}
+
+.card-body-jogos {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    padding: 5%;
+}
+
+.card-body-jogos p {
+    margin: 0;
+}
+
+.capa-jogo {
+    height: 150px;
+    width: 130px;
+}
+
+.card-ps4 h4,
+.card-xbox h4,
+.card-nintendo h4 {
+    padding: 1%;
+    margin-top: 5%;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.card-ps4 h4 {
+    border-top: solid 5px #024ab9;
+}
+
+.card-xbox h4 {
+    border-top: solid 5px #0a9843;
+}
+
+.card-nintendo h4 {
+    border-top: solid 5px #afb4b9;
+}
+
+.img-cartao {
+    width: 5%;
+    min-width: 65px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+footer li {
+    list-style-type: none;
+}
+
+footer ul {
+    width: 24%;
+}
+
+.title {
+    padding-left: 1%;
+    border-left: solid 2px #000000;
+    border-radius: 2px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.autorais {
+    color: #8c8c8c;
+    padding: 20px;
+    font-size: 0.68em;
+    text-align: center;
+}
+
+.list-links, .list-pag-social {
+    padding: 0 20px;
+}
+
+.list-links > ul, .list-pag-social ul {
+    padding: 0;
+}
+
+.list-pag-social > ul {
+    width: 49%;
+}
+
+.card-avaliacoes {
+    width: 22% !important;
+    border-radius: 10%;
+}
+
+.border-top-footer {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, rgba(0, 0, 255, .5), rgba(0, 128, 0, .5), rgba(128, 128, 128, .5));
+    margin: 24px 0;
+}
+
+footer a {
+    color: #444b50;
+}
+
+.img-avaliacao {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px 10px 0 0;
+}
+
+.space-img {
+    height: 40%;
+}
+
+.space-details {
+    height: 60%;
+}
+
+.space-details h4 {
+    font-family: 'Satisfy', cursive;
+}
+
+.hr {
+    margin: 0 !important;
+}
+
+.jogo-nome {
+    padding-top: 5px;
+    color: #295565;
+    font-weight: bold !important;
+    font-size: 1.2em;
+}
+
+.jogo-details-avista {
+    font-size: 0.8em;
+    border: solid 1px #295565;
+    padding: 2% 5%;
+    border-radius: 6px;
+    background-color: #29556517;
+}
+
+.btn-jogos {
+    width: 90%;
+}
+
+.btn-jogos:hover {
+    transform: scale(1.05);
+    transition: 0.5s;
+}
+
+.badge-navbar {
+    background-color: #1C2331;
+}
+
+.top-nav-collapse {
+    background-color: #1C2331;
+}
+
+.txt-parcelas {
+    font-size: 0.9em;
+}
+
+.dropdown-item:hover {
+    color: white !important;
+    background-color: #1c2331;
+}
+
+.dropdown-btn {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #FFFFFF;
+    min-width: 350px;
+    min-height: 100px;
+    max-height: 400px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 0;
+    border-radius: 10px;
+}
+
+.dropdown-content div {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.carrinho-view {
+    overflow-y: scroll;
+    height: 280px;
+}
+
+.carrinho-view-details {
+    border-top: 1px solid #dadada;
+    height: 120px;
+}
+
+.carrinho-view-details > div span {
+    font-size: 0.8em;
+}
+
+#itensCard li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-card-view {
+    height: 45px;
+    width: 35px;
+}
+
+.modal-center {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.color-default {
+    color: #1C2331 !important;
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.left-0 {
+    left: 0 !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.abbreviate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+input.error{
+    border-color: red;
+}
+
+.error{
+    color: red;
+}
+
+.modal-content {
+    border-radius: 10px !important;
+}
+
+/*TODO => CSS A TESTAR*/
+.size-max-modal {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.mw-800 {
+    max-width: 800px;
+}
+
+.mw-1000 {
+    max-width: 1000px;
+}
+
+.mt-100px {
+    margin-top: 100px;
+}
+
+.h-80 {
+    height: 80%;
+}
+
+.h-90 {
+    height: 90%;
+}
+
+.h-20 {
+    height: 20%;
+}
+
+.mh-80vh {
+    max-height: 80vh;
+}
+
+.mh-90vh {
+    max-height: 90vh;
+}
+
+.mh-500 {
+    max-height: 500px !important;
+}
+
+.font-size-11 {
+    font-size: 1.1em
+}
+
+.font-size-12 {
+    font-size: 1.2em;
+}
+
+.w-100p {
+    width: 100px;
+}

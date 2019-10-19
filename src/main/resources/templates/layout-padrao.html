@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Projeto Final</title>
+
+    <link rel="shortcut icon" th:href="@{/img/logo.png}"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}"/>
+<!--    <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>-->
+<!--    <link rel="stylesheet" th:href="@{/vendors/materialDesign/css/mdb.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/css/styles.css}">-->
+    <script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
+
+</head>
+
+<body>
+<div class="page-wrapper chiller-theme toggled">
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#" style="margin-left: 0">
+        <i class="fas fa-bars"></i>
+    </a>
+    <nav>
+    </nav>
+
+    <main class="page-content">
+        <div class="container-fluid">
+            <section class="ut-layout-content" layout:fragment="conteudo">
+
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="d-flex justify-content-around list-links">
+            <ul>
+                <li class="title py-1">Institucional</li>
+                <li class="py-1"><a href="#">Quem Somos</a></li>
+                <li class="py-1"><a href="#">Política de Vendas</a></li>
+                <li class="py-1"><a href="#">Segurança e Privacidade</a></li>
+                <li class="py-1"><a href="#">Trabalhe Conosco</a></li>
+                <li class="py-1"><a href="#">Regulamentos</a></li>
+            </ul>
+
+            <ul>
+                <li class="title py-1">Ajuda</li>
+                <li class="py-1"><a href="">Fale Conosco</a></li>
+                <li class="py-1"><a href="#">Política de Privacidade</a></li>
+                <li class="py-1"><a href="#">Assistência Técnica</a></li>
+                <li class="py-1"><a href="#">Termos de Compra e Venda</a></li>
+            </ul>
+
+            <ul>
+                <li class="title py-1">Atendimento</li>
+                <li class="py-1"><a href="#">Meus Pedidos</a></li>
+                <li class="py-1"><a href="#">Trocas</a></li>
+                <li class="py-1"><a href="#">Devoluções</a></li>
+                <li class="py-1"><a href="#">Cancelamentos</a></li>
+            </ul>
+
+            <ul>
+                <li class="title py-1">Serviços</li>
+                <li class="py-1"><a href="#">Televendas</a></li>
+                <li class="py-1"><a href="#">Clube dos Nerds</a></li>
+                <li class="py-1"><a href="#">Lista de Férias</a></li>
+                <li class="py-1"><a href="#">Cartão GameStore</a></li>
+            </ul>
+        </div>
+
+        <div class="d-flex list-pag-social">
+
+            <div>
+                <span class="title py-1">Formas de Pagamento</span>
+                <ul class="d-flex flex-row p-0 list-bandeiras">
+                    <li><img class="img-cartao" th:src="@{/img/bandeiras/master.png}" alt="MasterCard" title="MasterCard"/></li>
+                    <li><img class="img-cartao" th:src="@{/img/bandeiras/maestro.png}" alt="Maestro" title="Maestro"/></li>
+                    <li><img class="img-cartao" th:src="@{/img/bandeiras/visa.png}" alt="Visa" title="Visa"/></li>
+                    <li><img class="img-cartao" th:src="@{/img/bandeiras/visaElectron.png}" alt="Visa Electron" title="Visa Electron"/></li>
+                    <li><img class="img-cartao" th:src="@{/img/bandeiras/diners.png}" alt="Diners Club" title="Diners Club"/></li>
+                    <li><img class="img-cartao" th:src="@{/img/bandeiras/americanExpress.png}" alt="American Express" title="American Express"/></li>
+                </ul>
+            </div>
+
+            <ul>
+                <li class="title py-1">Nossas Redes Sociais</li>
+                <a class="btn btn-social-icon btn-instagram rounded-circle">
+                    <span class="fa fa-instagram" title="Instagram"></span>
+                </a>
+                <a class="btn btn-social-icon btn-facebook rounded-circle">
+                    <span class="fa fa-facebook" title="Facebook"></span>
+                </a>
+                <a class="btn btn-social-icon btn-twitter rounded-circle">
+                    <span class="fa fa-twitter" title="Twitter"></span>
+                </a>
+                <a class="btn btn-social-icon btn-tumblr rounded-circle">
+                    <span class="fa fa-tumblr" title="Tumblr"></span>
+                </a>
+                <a class="btn btn-social-icon btn-google rounded-circle">
+                    <span class="fa fa-google" title="Google"></span>
+                </a>
+            </ul>
+        </div>
+        <p class="autorais">Copyright ©1999 - 2019 www.gamestore.com.br, TODOS OS DIREITOS RESERVADOS. Todo o conteúdo
+            do site, todas as
+            fotos, imagens, logotipos, marcas, dizeres, som, software, conjunto imagem, layout, trade dress, aqui
+            veiculados são de propriedade exclusiva da empresa. É vedada qualquer reprodução, total ou
+            parcial, de qualquer elemento de identidade, sem expressa autorização. A violação de qualquer direito
+            mencionado implicará na responsabilização cível e criminal nos termos da Lei. Game's Store S/A - CNPJ:
+            79.152.498/0001-46 Rua da Esperança, 2019 - Vila dos Milagres - CEP 85504-000 - Pato Branco - PR</p>
+    </footer>
+</div>
+
+<!--<script type="text/javascript" th:src="@{/js/layout-padrao.js}"></script>-->
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!--<script type="text/javascript"-->
+<!--        th:src="@{/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>-->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+<script src="http://parsleyjs.org/dist/parsley.min.js"></script>
+<!--<script type="text/javascript" th:src="@{/vendors/parsley/pt-br.js}"></script>-->
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>
+<th:block layout:fragment="script"></th:block>
+</body>
+</html>
