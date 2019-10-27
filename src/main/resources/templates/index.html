@@ -4,14 +4,42 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout-padrao}">
-<head></head>
+<head>
+    <link rel="stylesheet" th:href="@{/vendors/slick/slick-theme.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/slick/slick.css}"/>
+</head>
 <body>
+
 <section layout:fragment="conteudo">
-    <div class="page-header" style="margin: 100px">
-        <div class="container-fluid" style="display: flex; justify-content: center; align-items: center">
-            <img alt="Logotipo da Empresa" th:src="@{/img/logo.png}"/>
+
+    <div>
+        <div class="card-ps4" id="jogosPs4">
+            <h4>Jogos PS4</h4>
+            <div class="jogos" id="gamePs"></div>
+        </div>
+
+        <div class="card-xbox" id="jogosXbox">
+            <h4>Jogos Xbox One</h4>
+            <div class="jogos" id="gameXbox"></div>
+        </div>
+
+        <div class="card-nintendo" id="jogosNintendo">
+            <h4>Jogos Nintendo Wii U</h4>
+            <div class="jogos" id="gameNintendo"></div>
         </div>
     </div>
+
+    <div>
+        <h4 class="text-center py-2">Depoimentos dos Clientes</h4>
+        <div class="d-flex justify-content-between" id="avaliacoes"></div>
+    </div>
 </section>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/model/Produto.js}"></script>
+    <script type="text/javascript" th:src="@{/js/model/Avaliacao.js}"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/vendors/slick/slick.min.js}"></script>
+</th:block>
 </body>
 </html>

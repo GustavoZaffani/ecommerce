@@ -14,126 +14,565 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-          crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"-->
+    <!--          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"-->
+    <!--          crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
     <link rel="stylesheet" href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" th:href="@{/vendors/materialDesign/css/mdb.css}">
+    <!--    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->
+    <link rel="stylesheet" th:href="@{/vendors/social/assets/css/font-awesome.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/social/bootstrap-social.css}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <link rel="stylesheet" th:href="@{/css/responsive.css}"/>
-<!--    <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>-->
-<!--    <link rel="stylesheet" th:href="@{/vendors/materialDesign/css/mdb.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/styles.css}">-->
+    <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>
+
     <script type="text/javascript" th:src="@{/vendors/jquery/jquery.js}"></script>
 
 </head>
 
 <body>
-<div class="page-wrapper chiller-theme toggled">
-    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#" style="margin-left: 0">
-        <i class="fas fa-bars"></i>
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+
+    <a class="navbar-brand d-flex align-items-center" href="#">
+        <i class="fa fa-2x fa-gamepad white-text px-2"></i>
+        <strong>GameStore</strong>
     </a>
-    <nav>
-    </nav>
 
-    <main class="page-content">
-        <div class="container-fluid">
-            <section class="ut-layout-content" layout:fragment="conteudo">
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#nav-collapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-            </section>
-        </div>
-    </main>
+    <div class="collapse navbar-collapse" id="nav-collapse">
 
-    <footer>
-        <div class="d-flex justify-content-around list-links">
-            <ul>
-                <li class="title py-1">Institucional</li>
-                <li class="py-1"><a href="#">Quem Somos</a></li>
-                <li class="py-1"><a href="#">Política de Vendas</a></li>
-                <li class="py-1"><a href="#">Segurança e Privacidade</a></li>
-                <li class="py-1"><a href="#">Trabalhe Conosco</a></li>
-                <li class="py-1"><a href="#">Regulamentos</a></li>
-            </ul>
+        <ul class="navbar-nav m-auto">
+            <li class="nav-item active px-1">
+                <a href="#" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item dropdown px-1">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Nossos Jogos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" id="dropDownPs4" href="#jogosPs4">PS4</a>
+                    <a class="dropdown-item" id="dropDownXbox" href="#jogosXbox">XboxOne</a>
+                    <a class="dropdown-item" id="dropDownNintendo" href="#jogosNintendo">Nintendo</a>
+                </div>
+            </li>
+        </ul>
 
-            <ul>
-                <li class="title py-1">Ajuda</li>
-                <li class="py-1"><a href="">Fale Conosco</a></li>
-                <li class="py-1"><a href="#">Política de Privacidade</a></li>
-                <li class="py-1"><a href="#">Assistência Técnica</a></li>
-                <li class="py-1"><a href="#">Termos de Compra e Venda</a></li>
-            </ul>
+        <ul class="navbar-nav nav-flex-icons nav-icons">
+            <li class="nav-item dropdown">
+                <a class="nav-link waves-effect d-flex align-items-center dropdown-btn">
+                    <span class="white-text px-2" id="usuario"></span>
+                    <i class="fa fa-2x fa-user white-text"></i>
+                </a>
+                <div class="dropdown-content content-user">
+                    <div id="dropdown-user"></div>
+                </div>
+            </li>
 
-            <ul>
-                <li class="title py-1">Atendimento</li>
-                <li class="py-1"><a href="#">Meus Pedidos</a></li>
-                <li class="py-1"><a href="#">Trocas</a></li>
-                <li class="py-1"><a href="#">Devoluções</a></li>
-                <li class="py-1"><a href="#">Cancelamentos</a></li>
-            </ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link waves-effect d-flex align-items-center dropdown-btn">
+                    <i class="fa fa-2x fa-shopping-cart mr-2"></i>
+                    <span class="badge red z-depth-1" id="qtdeItensCar"></span>
+                </a>
+                <div class="dropdown-content">
+                    <div class="carrinho-view">
+                        <ul id="itensCard" class="p-0"></ul>
+                    </div>
+                    <div class="d-flex flex-column carrinho-view-details">
+                        <div class="d-flex justify-content-between">
+                            <span id="carrinho-view-details-qtde"></span>
+                            <span id="carrinho-view-details-total"></span>
+                        </div>
+                        <button class="btn btn-amber" onclick="openCarrinho()">Ir para Carrinho</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-            <ul>
-                <li class="title py-1">Serviços</li>
-                <li class="py-1"><a href="#">Televendas</a></li>
-                <li class="py-1"><a href="#">Clube dos Nerds</a></li>
-                <li class="py-1"><a href="#">Lista de Férias</a></li>
-                <li class="py-1"><a href="#">Cartão GameStore</a></li>
-            </ul>
-        </div>
+<div id="carousel-video" class="carousel slide carousel-fade" data-ride="carousel">
 
-        <div class="d-flex list-pag-social">
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-video" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-video" data-slide-to="1"></li>
+        <li data-target="#carousel-video" data-slide-to="2"></li>
+    </ol>
 
-            <div>
-                <span class="title py-1">Formas de Pagamento</span>
-                <ul class="d-flex flex-row p-0 list-bandeiras">
-                    <li><img class="img-cartao" th:src="@{/img/bandeiras/master.png}" alt="MasterCard" title="MasterCard"/></li>
-                    <li><img class="img-cartao" th:src="@{/img/bandeiras/maestro.png}" alt="Maestro" title="Maestro"/></li>
-                    <li><img class="img-cartao" th:src="@{/img/bandeiras/visa.png}" alt="Visa" title="Visa"/></li>
-                    <li><img class="img-cartao" th:src="@{/img/bandeiras/visaElectron.png}" alt="Visa Electron" title="Visa Electron"/></li>
-                    <li><img class="img-cartao" th:src="@{/img/bandeiras/diners.png}" alt="Diners Club" title="Diners Club"/></li>
-                    <li><img class="img-cartao" th:src="@{/img/bandeiras/americanExpress.png}" alt="American Express" title="American Express"/></li>
-                </ul>
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            <div class="view">
+                <video class="video-fluid" autoplay loop muted>
+                    <source src="videos/theLast.mp4" type="video/mp4"/>
+                </video>
+                <div class="mask rgba-indigo-light"></div>
             </div>
 
-            <ul>
-                <li class="title py-1">Nossas Redes Sociais</li>
-                <a class="btn btn-social-icon btn-instagram rounded-circle">
-                    <span class="fa fa-instagram" title="Instagram"></span>
-                </a>
-                <a class="btn btn-social-icon btn-facebook rounded-circle">
-                    <span class="fa fa-facebook" title="Facebook"></span>
-                </a>
-                <a class="btn btn-social-icon btn-twitter rounded-circle">
-                    <span class="fa fa-twitter" title="Twitter"></span>
-                </a>
-                <a class="btn btn-social-icon btn-tumblr rounded-circle">
-                    <span class="fa fa-tumblr" title="Tumblr"></span>
-                </a>
-                <a class="btn btn-social-icon btn-google rounded-circle">
-                    <span class="fa fa-google" title="Google"></span>
-                </a>
+            <div class="carousel-caption">
+                <div class="animated fadeInDown">
+                    <h3 class="h3-responsive">The Last of Us</h3>
+                    <p>Disponível para PS4</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div class="view">
+                <video class="video-fluid w-100" autoplay loop muted>
+                    <source src="videos/pes.mp4" type="video/mp4"/>
+                </video>
+                <div class="mask rgba-purple-slight"></div>
+            </div>
+
+            <div class="carousel-caption">
+                <div class="animated fadeInDown">
+                    <h3 class="h3-responsive">Pro Evolution Soccer 2019</h3>
+                    <p>Disponível para PS4 e Xbox</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div class="view">
+                <video class="video-fluid" autoplay loop muted>
+                    <source src="videos/avenger.mp4"
+                            type="video/mp4"/>
+                </video>
+                <div class="mask rgba-black-strong"></div>
+            </div>
+
+            <div class="carousel-caption">
+                <div class="animated fadeInDown">
+                    <h3 class="h3-responsive">Avengers</h3>
+                    <p>Em breve</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="carousel-control-prev" href="#carousel-video" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-video" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </a>
+</div>
+
+<div class="modal fade" id="modalLogin" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Login</h5>
+            </div>
+            <div class="modal-body">
+                <form id="formLogin" onsubmit="login(event, true, false)">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="usuarioLogin">Usuário</label>
+                                <input id="usuarioLogin"
+                                       name="usuarioLogin"
+                                       class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="senhaLogin">Senha</label>
+                                <input id="senhaLogin"
+                                       name="senhaLogin"
+                                       class="form-control"
+                                       type="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="text-center mt-2">
+                            <button class="btn btn-primary">Login <i class="fas fa-sign-in-alt ml-1"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCadastroUsuario" tabindex="-1">
+    <div class="modal-dialog mw-800">
+
+        <form id="formCadUsuario" onsubmit="inserirUsuario(event)">
+
+            <div class="modal-content mh-90vh">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">Cadastro de Usuário</h5>
+                </div>
+
+                <div class="modal-body overflow-auto">
+                    <ul class="nav nav-tabs" id="tabCadastro" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active color-default" id="tabCadBasico" data-toggle="tab"
+                               href="#cadBasico" role="tab" aria-controls="cadBasico"
+                               aria-selected="true">Dados Pessoais</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-default" id="tabCadEndereco" data-toggle="tab"
+                               href="#cadEndereco"
+                               role="tab" aria-controls="cadEndereco"
+                               aria-selected="false">Endereço</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-default" id="tabCadObs" data-toggle="tab" href="#cadObs"
+                               role="tab"
+                               aria-controls="cadObs"
+                               aria-selected="false">Outros</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+
+                        <div class="tab-pane fade show active" id="cadBasico" role="tabpanel"
+                             aria-labelledby="tabCadBasico">
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="cadNome">Nome *</label>
+                                        <input id="cadNome"
+                                               name="cadNome"
+                                               class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cadDtNasc">Data Nascimento *</label>
+                                        <input id="cadDtNasc"
+                                               name="cadDtNasc"
+                                               class="form-control"
+                                               type="date">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Gênero</label>
+                                        <div class="form-control border-0">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio"
+                                                       class="custom-control-input"
+                                                       id="cadGeneroM"
+                                                       checked
+                                                       value="M"
+                                                       name="cadGenero">
+                                                <label class="custom-control-label"
+                                                       for="cadGeneroM">Masculino</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio"
+                                                       class="custom-control-input"
+                                                       id="cadGeneroF"
+                                                       value="F"
+                                                       name="cadGenero">
+                                                <label class="custom-control-label"
+                                                       for="cadGeneroF">Feminino</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cadCpf">CPF *</label>
+                                        <input id="cadCpf"
+                                               name="cadCpf"
+                                               class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cadTelRes">Telefone Res.</label>
+                                        <input id="cadTelRes"
+                                               name="cadTelRes"
+                                               class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cadTelCel">Telefone Cel. *</label>
+                                        <input id="cadTelCel"
+                                               name="cadTelCel"
+                                               class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="cadUsuario">Usuário *</label>
+                                        <input id="cadUsuario"
+                                               name="cadUsuario"
+                                               type="text"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cadSenha">Senha *</label>
+                                        <input id="cadSenha"
+                                               name="cadSenha"
+                                               class="form-control"
+                                               type="password">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cadSenhaConfirm">Confirmar Senha *</label>
+                                        <input id="cadSenhaConfirm"
+                                               name="cadSenhaConfirm"
+                                               class="form-control"
+                                               type="password">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="cadEndereco" role="tabpanel"
+                             aria-labelledby="tabCadEndereco">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="cadEndRua">Rua *</label>
+                                        <input id="cadEndRua"
+                                               name="cadEndRua"
+                                               class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cadEndBairro">Bairro *</label>
+                                        <input id="cadEndBairro"
+                                               name="cadEndBairro"
+                                               class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="cadEndNro">Número *</label>
+                                        <input id="cadEndNro"
+                                               name="cadEndNro"
+                                               class="form-control"
+                                               type="number">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="cadEndCep">CEP *</label>
+                                        <input id="cadEndCep"
+                                               name="cadEndCep"
+                                               class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="cadEndCidade">Cidade *</label>
+                                        <input id="cadEndCidade"
+                                               name="cadEndCidade"
+                                               class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="cadEndEstado">Estado</label>
+                                        <select name="cadEndEstado" id="cadEndEstado" class="form-control">
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espírito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="cadObs" role="tabpanel" aria-labelledby="tabCadObs">
+                            <label for="cadEndObs">Observações:</label>
+                            <textarea name="cadEndObs"
+                                      id="cadEndObs"
+                                      cols="30"
+                                      rows="10"
+                                      class="form-control">
+                                </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary"
+                            type="submit">
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<main class="page-content">
+    <div class="container">
+        <section class="ut-layout-content" layout:fragment="conteudo">
+
+        </section>
+    </div>
+</main>
+
+<div class="border-top-footer"></div>
+
+<footer>
+    <div class="d-flex justify-content-around list-links">
+        <ul>
+            <li class="title py-1">Institucional</li>
+            <li class="py-1"><a href="#">Quem Somos</a></li>
+            <li class="py-1"><a href="#">Política de Vendas</a></li>
+            <li class="py-1"><a href="#">Segurança e Privacidade</a></li>
+            <li class="py-1"><a href="#">Trabalhe Conosco</a></li>
+            <li class="py-1"><a href="#">Regulamentos</a></li>
+        </ul>
+
+        <ul>
+            <li class="title py-1">Ajuda</li>
+            <li class="py-1"><a href="">Fale Conosco</a></li>
+            <li class="py-1"><a href="#">Política de Privacidade</a></li>
+            <li class="py-1"><a href="#">Assistência Técnica</a></li>
+            <li class="py-1"><a href="#">Termos de Compra e Venda</a></li>
+        </ul>
+
+        <ul>
+            <li class="title py-1">Atendimento</li>
+            <li class="py-1"><a href="#">Meus Pedidos</a></li>
+            <li class="py-1"><a href="#">Trocas</a></li>
+            <li class="py-1"><a href="#">Devoluções</a></li>
+            <li class="py-1"><a href="#">Cancelamentos</a></li>
+        </ul>
+
+        <ul>
+            <li class="title py-1">Serviços</li>
+            <li class="py-1"><a href="#">Televendas</a></li>
+            <li class="py-1"><a href="#">Clube dos Nerds</a></li>
+            <li class="py-1"><a href="#">Lista de Férias</a></li>
+            <li class="py-1"><a href="#">Cartão GameStore</a></li>
+        </ul>
+    </div>
+
+    <div class="d-flex list-pag-social">
+
+        <div>
+            <span class="title py-1">Formas de Pagamento</span>
+            <ul class="d-flex flex-row p-0 list-bandeiras">
+                <li><img class="img-cartao" th:src="@{/img/bandeiras/master.png}" alt="MasterCard"
+                         title="MasterCard"/></li>
+                <li><img class="img-cartao" th:src="@{/img/bandeiras/maestro.png}" alt="Maestro" title="Maestro"/>
+                </li>
+                <li><img class="img-cartao" th:src="@{/img/bandeiras/visa.png}" alt="Visa" title="Visa"/></li>
+                <li><img class="img-cartao" th:src="@{/img/bandeiras/visaElectron.png}" alt="Visa Electron"
+                         title="Visa Electron"/></li>
+                <li><img class="img-cartao" th:src="@{/img/bandeiras/diners.png}" alt="Diners Club"
+                         title="Diners Club"/></li>
+                <li><img class="img-cartao" th:src="@{/img/bandeiras/americanExpress.png}" alt="American Express"
+                         title="American Express"/></li>
             </ul>
         </div>
-        <p class="autorais">Copyright ©1999 - 2019 www.gamestore.com.br, TODOS OS DIREITOS RESERVADOS. Todo o conteúdo
-            do site, todas as
-            fotos, imagens, logotipos, marcas, dizeres, som, software, conjunto imagem, layout, trade dress, aqui
-            veiculados são de propriedade exclusiva da empresa. É vedada qualquer reprodução, total ou
-            parcial, de qualquer elemento de identidade, sem expressa autorização. A violação de qualquer direito
-            mencionado implicará na responsabilização cível e criminal nos termos da Lei. Game's Store S/A - CNPJ:
-            79.152.498/0001-46 Rua da Esperança, 2019 - Vila dos Milagres - CEP 85504-000 - Pato Branco - PR</p>
-    </footer>
-</div>
+
+        <ul>
+            <li class="title py-1">Nossas Redes Sociais</li>
+            <a class="btn btn-social-icon btn-instagram rounded-circle">
+                <span class="fa fa-instagram" title="Instagram"></span>
+            </a>
+            <a class="btn btn-social-icon btn-facebook rounded-circle">
+                <span class="fa fa-facebook" title="Facebook"></span>
+            </a>
+            <a class="btn btn-social-icon btn-twitter rounded-circle">
+                <span class="fa fa-twitter" title="Twitter"></span>
+            </a>
+            <a class="btn btn-social-icon btn-tumblr rounded-circle">
+                <span class="fa fa-tumblr" title="Tumblr"></span>
+            </a>
+            <a class="btn btn-social-icon btn-google rounded-circle">
+                <span class="fa fa-google" title="Google"></span>
+            </a>
+        </ul>
+    </div>
+    <p class="autorais">Copyright ©1999 - 2019 www.gamestore.com.br, TODOS OS DIREITOS RESERVADOS. Todo o conteúdo
+        do site, todas as
+        fotos, imagens, logotipos, marcas, dizeres, som, software, conjunto imagem, layout, trade dress, aqui
+        veiculados são de propriedade exclusiva da empresa. É vedada qualquer reprodução, total ou
+        parcial, de qualquer elemento de identidade, sem expressa autorização. A violação de qualquer direito
+        mencionado implicará na responsabilização cível e criminal nos termos da Lei. Game's Store S/A - CNPJ:
+        79.152.498/0001-46 Rua da Esperança, 2019 - Vila dos Milagres - CEP 85504-000 - Pato Branco - PR</p>
+</footer>
 
 <!--<script type="text/javascript" th:src="@{/js/layout-padrao.js}"></script>-->
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script type="text/javascript"
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<!--<script type="text/javascript"-->
-<!--        th:src="@{/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>-->
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 <script src="http://parsleyjs.org/dist/parsley.min.js"></script>
 <!--<script type="text/javascript" th:src="@{/vendors/parsley/pt-br.js}"></script>-->
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>
+<script type="text/javascript" th:src="@{/js/layout-padrao.js}"></script>
 <th:block layout:fragment="script"></th:block>
 </body>
 </html>

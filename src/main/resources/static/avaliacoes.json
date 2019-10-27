@@ -1,0 +1,28 @@
+{
+  "avaliacoes": [
+    {
+      "id": "1",
+      "nome": "Cristiano Ronaldo",
+      "avaliacao": "Atendimento excelente, além de possuir um site completo.",
+      "foto": "img/avaliadores/avaliacaoCr7.jpg"
+    },
+    {
+      "id": "2",
+      "nome": "Mahatma Gandhi",
+      "avaliacao": "Simplesmente genial a forma como o site atende aos clientes.",
+      "foto": "img/avaliadores/avaliacaoGandhi.jpg"
+    },
+    {
+      "id": "3",
+      "nome": "Jakob Nielsen",
+      "avaliacao": "Merece 10,0 na média, devido ao esforço.",
+      "foto": "img/avaliadores/avaliacaoNielsen.jpg"
+    },
+    {
+      "id": "4",
+      "nome": "Katie Bouman",
+      "avaliacao": "Não tem como descontar nota, o esforço e dedicação são evidentes.",
+      "foto": "img/avaliadores/avaliacaoKatie.jpg"
+    }
+  ]
+}
