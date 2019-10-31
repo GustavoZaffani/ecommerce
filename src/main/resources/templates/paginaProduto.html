@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout-padrao}">
+<head>
+    <link rel="stylesheet" th:href="@{/vendors/slick/slick-theme.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/slick/slick.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/paginaProduto.css}"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}"/>
+</head>
+<body>
+
+<section layout:fragment="conteudo">
+
+    <div class="container mt-100px" id="expansion-page">
+
+    <div class="card-produto d-flex">
+        <div class="d-flex flex-column size-block-images">
+            <div class="d-flex align-items-center justify-content-center h-80" id="div-img-principal"></div>
+            <div class="d-flex justify-content-around h-20" id="div-img-complementares"></div>
+        </div>
+        <div class="produto-vlr d-flex flex-column">
+            <h4 id="nomeJogo" class="text-center p-2 font-weight-bolder color-default"></h4>
+            <span id="codJogo"></span>
+            <span id="precoJogo" class="font-size-15"></span>
+            <div class="d-flex align-items-center">
+                <i class="fa fa-2x fa-credit-card"></i>
+                <span class="p-2" id="qtdeParcelasJogo"></span>
+            </div>
+            <div class="d-flex align-items-center">
+                <i class="fa fa-2x fa-barcode"></i>
+                <span class="p-2" id="precoAvista"></span>
+            </div>
+
+            <button class="btn btn-amber text-center"
+                    onclick="goToCart()">
+                <i class="fa fa-2x fa-shopping-cart px-2"></i>
+                Comprar
+            </button>
+
+            <div class="parcelas d-flex justify-content-between my-3">
+                <img src="images/card.png" alt="">
+                <a class="color-default" href="" data-toggle="modal" data-target="#modalParcelas">Ver Parcelas</a>
+            </div>
+
+            <div class="modal fade" id="modalParcelas" tabindex="-1">
+                <div class="modal-dialog w-300">
+                    <div class="modal-content">
+                        <div class="modal-header d-block">
+                            <h5 class="modal-title text-center">Formas de Parcelamento</h5>
+                        </div>
+
+                        <div class="modal-body">
+                            <ul class="list-group list-group-flush" id="parcelas"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divisor-cep"></div>
+            <div class="frete my-3">
+                <h5 class="text-uppercase text-center p-2 my-2 color-default">Calcule os preços e prazos de frete</h5>
+                <div class="input-group p-2">
+                    <input type="text" class="form-control" placeholder="CEP" id="simulaCep" name="simulaCep">
+                    <div class="input-group-append">
+                        <button class="btn btn-blue-grey m-0 px-4 py-2" type="button"
+                                onclick="montaTableFrete(produto.precoVenda)">OK
+                        </button>
+                    </div>
+                </div>
+                <p class="p-2 text-center">FRETE GRÁTIS para TODO O BRASIL, nas compras acima de R$ 199,99 </p>
+                <div class="d-none justify-content-center" id="loader">
+                    <div class="spinner-border m-2" role="status"></div>
+                </div>
+                <hr class="d-none delimitador">
+                <table class="table table-hover d-none table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Frete</th>
+                            <th>Prazo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="valoresFrete"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <h4 class="font-weight-bolder color-default" id="title">Descrição</h4>
+        <p>Red Dead Redemption 2 conhecido como Grand Theft Auto do velho oeste, dá sequência a Red Dead Redemption,s
+            trazendo muita ação em uma aventura. Considerado um “conto épico da vida no interior implacável da América”,
+            o game sempre surpreendeu seus fãs, com a riqueza na história do game, da jogabilidade, seus personagens com
+            suas personalidades bem marcantes e de seus mapas com suas diversas opções de exploração.</p>
+    </div>
+
+    <div class="container" id="details-product">
+        <h4 class="font-weight-bolder color-default">Especificações</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item list-details text-left"><strong>Desenvolvedora: </strong>Rockstar Studios</li>
+            <li class="list-group-item list-details text-left"><strong>Publicadora: </strong>Rockstar Games</li>
+            <li class="list-group-item list-details text-left"><strong>Data de lançamento: </strong>26/10/2018</li>
+            <li class="list-group-item list-details text-left"><strong>Idioma: </strong>Inglês</li>
+            <li class="list-group-item list-details text-left"><strong>Legenda: </strong>Português BR</li>
+            <li class="list-group-item list-details text-left"><strong>Idade Recomendada: </strong>Para maiores de 18 anos</li>
+            <li class="list-group-item list-details text-left"><strong>Número de jogadores offline: </strong>1</li>
+            <li class="list-group-item list-details text-left"><strong>Número de jogadores online: </strong>2 até 32</li>
+            <li class="list-group-item list-details text-left"><strong>Resolucação: </strong>Até 4K</li>
+        </ul>
+
+        <h4 class="font-weight-bolder color-default">Requisitos</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item list-details text-left">Ter tempo de jogar</li>
+        </ul>
+
+        <h4 class="font-weight-bolder color-default">Itens Inclusos</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item list-details text-left">Jogo</li>
+        </ul>
+
+        <h4 class="font-weight-bolder color-default">Garantia</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item list-details text-left">3 meses contra defeitos de fabricação</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <div>
+            <h4 class="font-weight-bolder color-default">Produtos relacionados</h4>
+            <div class="jogos" id="jogosRel"></div>
+        </div>
+    </div>
+
+    </div>
+
+</section>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/vendors/slick/slick.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/model/Frete.js}"></script>
+    <script type="text/javascript" th:src="@{/js/model/Produto.js}"></script>
+    <script type="text/javascript" th:src="@{/js/service/produtoService.js}"></script>
+    <script type="text/javascript" th:src="@{/js/util.js}"></script>
+    <script type="text/javascript" th:src="@{/js/paginaInterna.js}"></script>
+</th:block>
+
+</body>
+</html>
