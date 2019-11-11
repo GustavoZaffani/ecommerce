@@ -367,3 +367,7 @@ input.error{
 .w-100p {
     width: 100px;
 }
+
+.ui-front {
+    z-index: 9999 !important;
+}

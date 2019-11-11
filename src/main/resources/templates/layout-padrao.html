@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -11,13 +11,15 @@
 
     <link rel="shortcut icon" th:href="@{/img/logo.png}"/>
 
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
-<!--          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"-->
-<!--          crossorigin="anonymous">-->
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+    <!--          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"-->
+    <!--          crossorigin="anonymous">-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
     <link rel="stylesheet" th:href="@{/vendors/materialDesign/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/vendors/materialDesign/css/mdb.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/social/assets/css/font-awesome.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/social/bootstrap-social.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>
@@ -63,11 +65,23 @@
         <ul class="navbar-nav nav-flex-icons nav-icons">
             <li class="nav-item dropdown">
                 <a class="nav-link waves-effect d-flex align-items-center dropdown-btn">
-                    <span class="white-text px-2" id="usuario"></span>
+                    <span class="white-text px-2" sec:authorize="isAnonymous()">Olá, Visitante</span>
+                    <span class="white-text px-2" id="usuario" sec:authorize="isAuthenticated()" sec:authentication="name"></span>
                     <i class="fa fa-2x fa-user white-text"></i>
                 </a>
                 <div class="dropdown-content content-user">
-                    <div id="dropdown-user"></div>
+                    <div id="dropdown-user">
+                        <ul sec:authorize="isAnonymous()" class="list-group list-group-flush">
+                            <li class="list-group-item"><a onclick="openLogin()" class="color-default">Login</a></li>
+                            <li class="list-group-item"><a onclick="openModalCadUsuario(true)" class="color-default">Registrar-se</a></li>
+                        </ul>
+
+                        <ul sec:authorize="isAuthenticated()" class="list-group list-group-flush">
+                            <li class="list-group-item"><a onclick="openForm()" class="color-default">Minha Conta</a></li>
+                            <li class="list-group-item"><a href="" class="color-default">Meus Pedidos</a></li>
+                            <li class="list-group-item text-right"><a th:href="@{/logout}"><i title="Sair" class="fa fa-2x fa-sign-out pointer"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
             </li>
 
@@ -93,73 +107,6 @@
     </div>
 </nav>
 
-<!--<div id="carousel-video" class="carousel slide carousel-fade" data-ride="carousel">-->
-
-<!--    <ol class="carousel-indicators">-->
-<!--        <li data-target="#carousel-video" data-slide-to="0" class="active"></li>-->
-<!--        <li data-target="#carousel-video" data-slide-to="1"></li>-->
-<!--        <li data-target="#carousel-video" data-slide-to="2"></li>-->
-<!--    </ol>-->
-
-<!--    <div class="carousel-inner" role="listbox">-->
-<!--        <div class="carousel-item active">-->
-<!--            <div class="view">-->
-<!--                <video class="video-fluid" autoplay loop muted>-->
-<!--                    <source src="videos/theLast.mp4" type="video/mp4"/>-->
-<!--                </video>-->
-<!--                <div class="mask rgba-indigo-light"></div>-->
-<!--            </div>-->
-
-<!--            <div class="carousel-caption">-->
-<!--                <div class="animated fadeInDown">-->
-<!--                    <h3 class="h3-responsive">The Last of Us</h3>-->
-<!--                    <p>Disponível para PS4</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="carousel-item">-->
-<!--            <div class="view">-->
-<!--                <video class="video-fluid w-100" autoplay loop muted>-->
-<!--                    <source src="videos/pes.mp4" type="video/mp4"/>-->
-<!--                </video>-->
-<!--                <div class="mask rgba-purple-slight"></div>-->
-<!--            </div>-->
-
-<!--            <div class="carousel-caption">-->
-<!--                <div class="animated fadeInDown">-->
-<!--                    <h3 class="h3-responsive">Pro Evolution Soccer 2019</h3>-->
-<!--                    <p>Disponível para PS4 e Xbox</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="carousel-item">-->
-<!--            <div class="view">-->
-<!--                <video class="video-fluid" autoplay loop muted>-->
-<!--                    <source src="videos/avenger.mp4"-->
-<!--                            type="video/mp4"/>-->
-<!--                </video>-->
-<!--                <div class="mask rgba-black-strong"></div>-->
-<!--            </div>-->
-
-<!--            <div class="carousel-caption">-->
-<!--                <div class="animated fadeInDown">-->
-<!--                    <h3 class="h3-responsive">Avengers</h3>-->
-<!--                    <p>Em breve</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <a class="carousel-control-prev" href="#carousel-video" role="button" data-slide="prev">-->
-<!--        <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--    </a>-->
-<!--    <a class="carousel-control-next" href="#carousel-video" role="button" data-slide="next">-->
-<!--        <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--    </a>-->
-<!--</div>-->
-
 <div class="modal fade" id="modalLogin" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -167,13 +114,13 @@
                 <h5 class="modal-title text-center">Login</h5>
             </div>
             <div class="modal-body">
-                <form id="formLogin" onsubmit="login(event, true, false)">
+                <form id="formLogin" th:action="@{/login}" method="POST">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="usuarioLogin">Usuário</label>
-                                <input id="usuarioLogin"
-                                       name="usuarioLogin"
+                                <label for="username">Usuário</label>
+                                <input id="username"
+                                       name="username"
                                        class="form-control"
                                        type="text">
                             </div>
@@ -182,9 +129,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="senhaLogin">Senha</label>
-                                <input id="senhaLogin"
-                                       name="senhaLogin"
+                                <label for="password">Senha</label>
+                                <input id="password"
+                                       name="password"
                                        class="form-control"
                                        type="password">
                             </div>
@@ -194,6 +141,10 @@
                         <div class="text-center mt-2">
                             <button class="btn btn-primary">Login <i class="fas fa-sign-in-alt ml-1"></i></button>
                         </div>
+                    </div>
+                    <div class="alert alert-danger"
+                         th:if="${#bools.isTrue(param.error)}">
+                        O usuário e/ou senha inválido(s)!
                     </div>
                 </form>
             </div>
@@ -399,49 +350,69 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <label for="cadEndCidade">Cidade *</label>
-                                        <input id="cadEndCidade"
-                                               name="cadEndCidade"
-                                               class="form-control"
-                                               type="text">
-                                    </div>
-                                </div>
                                 <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="cadEndEstado">Estado</label>
-                                        <select name="cadEndEstado" id="cadEndEstado" class="form-control">
-                                            <option value="AC">Acre</option>
-                                            <option value="AL">Alagoas</option>
-                                            <option value="AP">Amapá</option>
-                                            <option value="AM">Amazonas</option>
-                                            <option value="BA">Bahia</option>
-                                            <option value="CE">Ceará</option>
-                                            <option value="DF">Distrito Federal</option>
-                                            <option value="ES">Espírito Santo</option>
-                                            <option value="GO">Goiás</option>
-                                            <option value="MA">Maranhão</option>
-                                            <option value="MT">Mato Grosso</option>
-                                            <option value="MS">Mato Grosso do Sul</option>
-                                            <option value="MG">Minas Gerais</option>
-                                            <option value="PA">Pará</option>
-                                            <option value="PB">Paraíba</option>
-                                            <option value="PR">Paraná</option>
-                                            <option value="PE">Pernambuco</option>
-                                            <option value="PI">Piauí</option>
-                                            <option value="RJ">Rio de Janeiro</option>
-                                            <option value="RN">Rio Grande do Norte</option>
-                                            <option value="RS">Rio Grande do Sul</option>
-                                            <option value="RO">Rondônia</option>
-                                            <option value="RR">Roraima</option>
-                                            <option value="SC">Santa Catarina</option>
-                                            <option value="SP">São Paulo</option>
-                                            <option value="SE">Sergipe</option>
-                                            <option value="TO">Tocantins</option>
-                                        </select>
+                                    <div class="form-group text-left">
+                                        <label for="estado">Estado</label>
+                                        <input type="text"
+                                               id="estado"
+                                               name="estado"
+                                               onblur="habilitaCidade()"
+                                               class="form-control">
                                     </div>
                                 </div>
+                                <div class="col-md-9">
+                                    <div class="form-group text-left">
+                                        <label for="cidade">Cidade</label>
+                                        <input type="text"
+                                               id="cidade"
+                                               name="cidade"
+                                               disabled
+                                               class="form-control">
+                                    </div>
+                                </div>
+<!--                                <div class="col-md-9">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label for="cadEndCidade">Cidade *</label>-->
+<!--                                        <input id="cadEndCidade"-->
+<!--                                               name="cadEndCidade"-->
+<!--                                               class="form-control"-->
+<!--                                               type="text">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label for="cadEndEstado">Estado</label>-->
+<!--                                        <select name="cadEndEstado" id="cadEndEstado" class="form-control">-->
+<!--                                            <option value="AC">Acre</option>-->
+<!--                                            <option value="AL">Alagoas</option>-->
+<!--                                            <option value="AP">Amapá</option>-->
+<!--                                            <option value="AM">Amazonas</option>-->
+<!--                                            <option value="BA">Bahia</option>-->
+<!--                                            <option value="CE">Ceará</option>-->
+<!--                                            <option value="DF">Distrito Federal</option>-->
+<!--                                            <option value="ES">Espírito Santo</option>-->
+<!--                                            <option value="GO">Goiás</option>-->
+<!--                                            <option value="MA">Maranhão</option>-->
+<!--                                            <option value="MT">Mato Grosso</option>-->
+<!--                                            <option value="MS">Mato Grosso do Sul</option>-->
+<!--                                            <option value="MG">Minas Gerais</option>-->
+<!--                                            <option value="PA">Pará</option>-->
+<!--                                            <option value="PB">Paraíba</option>-->
+<!--                                            <option value="PR">Paraná</option>-->
+<!--                                            <option value="PE">Pernambuco</option>-->
+<!--                                            <option value="PI">Piauí</option>-->
+<!--                                            <option value="RJ">Rio de Janeiro</option>-->
+<!--                                            <option value="RN">Rio Grande do Norte</option>-->
+<!--                                            <option value="RS">Rio Grande do Sul</option>-->
+<!--                                            <option value="RO">Rondônia</option>-->
+<!--                                            <option value="RR">Roraima</option>-->
+<!--                                            <option value="SC">Santa Catarina</option>-->
+<!--                                            <option value="SP">São Paulo</option>-->
+<!--                                            <option value="SE">Sergipe</option>-->
+<!--                                            <option value="TO">Tocantins</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
 
                         </div>
@@ -559,15 +530,18 @@
         79.152.498/0001-46 Rua da Esperança, 2019 - Vila dos Milagres - CEP 85504-000 - Pato Branco - PR</p>
 </footer>
 
-<!--<script type="text/javascript" th:src="@{/js/layout-padrao.js}"></script>-->
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" th:src="@{/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
-<script src="http://parsleyjs.org/dist/parsley.min.js"></script>
-<!--<script type="text/javascript" th:src="@{/vendors/parsley/pt-br.js}"></script>-->
+<script type="text/javascript" th:src="@{/vendors/sweetalert/sweetalert-dev.js}"></script>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>
 <script type="text/javascript" th:src="@{/js/layout-padrao.js}"></script>
+<script type="text/javascript" th:src="@{/js/util.js}"></script>
+<script type="text/javascript" th:src="@{/js/validations.js}"></script>
+<script type="text/javascript" th:src="@{/js/model/Cliente.js}"></script>
+<script type="text/javascript" th:src="@{/js/model/Endereco.js}"></script>
+<script type="text/javascript" th:src="@{/js/service/clienteService.js}"></script>
 <th:block layout:fragment="script"></th:block>
 </body>
 </html>

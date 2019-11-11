@@ -1,5 +1,6 @@
 package br.edu.utfpr.projeto.parte2.commerce.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,11 +35,18 @@ public class Endereco {
     private Integer nro;
 
     @ManyToOne
-    @JoinColumn(name = "id_estado", referencedColumnName = "id")
+    @JoinColumn(name = "estado_id", referencedColumnName = "id")
     private Estado estado;
 
     @ManyToOne
-    @JoinColumn(name = "id_cidade", referencedColumnName = "id")
+    @JoinColumn(name = "cidade_id", referencedColumnName = "id")
     private Cidade cidade;
 
+    @Column(name = "cep")
+    private String cep;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    private Cliente cliente;
 }

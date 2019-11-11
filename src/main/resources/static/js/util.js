@@ -193,3 +193,8 @@ function hiddenElement(element, displayOld) {
     $(element).removeClass(displayOld);
     $(element).addClass('d-none');
 }
+
+function removeSimbolos(texto) {
+    texto = texto.replace(/[^\d]+/g,'');
+    return texto;
+}

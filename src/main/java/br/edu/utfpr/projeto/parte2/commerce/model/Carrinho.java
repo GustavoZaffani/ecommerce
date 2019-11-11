@@ -23,10 +23,11 @@ public class Carrinho {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
-
+    @OneToMany(mappedBy = "carrinho",
+            cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<CarrinhoItem> carrinhoItemList;
 
     @Column(name = "dt_venda", nullable = false)

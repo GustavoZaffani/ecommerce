@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
@@ -17,11 +16,22 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(of = "id")
 public class CarrinhoItem {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "id_produto", referencedColumnName = "id")
     private Produto produto;
 
+    @Column(name = "qtde", nullable = false)
     private BigDecimal qtde;
 
+    @Column(name = "valor", nullable = false)
     private BigDecimal valor;
+
+    @ManyToOne
+    @JoinColumn(name = "carrinho_id", referencedColumnName = "id")
+    private Carrinho carrinho;
 }
