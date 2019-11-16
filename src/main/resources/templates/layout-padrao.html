@@ -15,7 +15,7 @@
     <!--          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"-->
     <!--          crossorigin="anonymous">-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
     <link rel="stylesheet" href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
     <link rel="stylesheet" th:href="@{/vendors/materialDesign/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/vendors/materialDesign/css/mdb.min.css}">
@@ -34,7 +34,7 @@
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
 
-    <a class="navbar-brand d-flex align-items-center" href="#">
+    <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
         <i class="fa fa-2x fa-gamepad white-text px-2"></i>
         <strong>GameStore</strong>
     </a>
@@ -47,7 +47,7 @@
 
         <ul class="navbar-nav m-auto">
             <li class="nav-item active px-1">
-                <a href="#" class="nav-link">Home</a>
+                <a th:href="@{/}" class="nav-link">Home</a>
             </li>
             <li class="nav-item dropdown px-1">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -55,9 +55,9 @@
                     Nossos Jogos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" id="dropDownPs4" href="#jogosPs4">PS4</a>
-                    <a class="dropdown-item" id="dropDownXbox" href="#jogosXbox">XboxOne</a>
-                    <a class="dropdown-item" id="dropDownNintendo" href="#jogosNintendo">Nintendo</a>
+                    <a class="dropdown-item" id="dropDownPs4" th:href="@{/#jogosPs4}">PS4</a>
+                    <a class="dropdown-item" id="dropDownXbox" th:href="@{/#jogosXbox}">XboxOne</a>
+                    <a class="dropdown-item" id="dropDownNintendo" th:href="@{/#jogosNintendo}">Nintendo</a>
                 </div>
             </li>
         </ul>
@@ -66,20 +66,25 @@
             <li class="nav-item dropdown">
                 <a class="nav-link waves-effect d-flex align-items-center dropdown-btn">
                     <span class="white-text px-2" sec:authorize="isAnonymous()">Olá, Visitante</span>
-                    <span class="white-text px-2" id="usuario" sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+                    <span class="white-text px-2" id="usuario" sec:authorize="isAuthenticated()"
+                          sec:authentication="name"></span>
                     <i class="fa fa-2x fa-user white-text"></i>
                 </a>
                 <div class="dropdown-content content-user">
                     <div id="dropdown-user">
                         <ul sec:authorize="isAnonymous()" class="list-group list-group-flush">
                             <li class="list-group-item"><a onclick="openLogin()" class="color-default">Login</a></li>
-                            <li class="list-group-item"><a onclick="openModalCadUsuario(true)" class="color-default">Registrar-se</a></li>
+                            <li class="list-group-item"><a onclick="openModalCadUsuario(true)" class="color-default">Registrar-se</a>
+                            </li>
                         </ul>
 
                         <ul sec:authorize="isAuthenticated()" class="list-group list-group-flush">
-                            <li class="list-group-item"><a onclick="openForm()" class="color-default">Minha Conta</a></li>
+                            <li class="list-group-item"><a onclick="openForm()" class="color-default">Minha Conta</a>
+                            </li>
                             <li class="list-group-item"><a href="" class="color-default">Meus Pedidos</a></li>
-                            <li class="list-group-item text-right"><a th:href="@{/logout}"><i title="Sair" class="fa fa-2x fa-sign-out pointer"></i></a></li>
+                            <li class="list-group-item text-right"><a th:href="@{/logout}"><i title="Sair"
+                                                                                              class="fa fa-2x fa-sign-out pointer"></i></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -99,7 +104,7 @@
                             <span id="carrinho-view-details-qtde"></span>
                             <span id="carrinho-view-details-total"></span>
                         </div>
-                        <button class="btn btn-amber" onclick="openCarrinho()">Ir para Carrinho</button>
+                        <a class="btn btn-amber" th:href="@{/carrinho}">Ir para Carrinho</a>
                     </div>
                 </div>
             </li>
@@ -370,49 +375,6 @@
                                                class="form-control">
                                     </div>
                                 </div>
-<!--                                <div class="col-md-9">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label for="cadEndCidade">Cidade *</label>-->
-<!--                                        <input id="cadEndCidade"-->
-<!--                                               name="cadEndCidade"-->
-<!--                                               class="form-control"-->
-<!--                                               type="text">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-3">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label for="cadEndEstado">Estado</label>-->
-<!--                                        <select name="cadEndEstado" id="cadEndEstado" class="form-control">-->
-<!--                                            <option value="AC">Acre</option>-->
-<!--                                            <option value="AL">Alagoas</option>-->
-<!--                                            <option value="AP">Amapá</option>-->
-<!--                                            <option value="AM">Amazonas</option>-->
-<!--                                            <option value="BA">Bahia</option>-->
-<!--                                            <option value="CE">Ceará</option>-->
-<!--                                            <option value="DF">Distrito Federal</option>-->
-<!--                                            <option value="ES">Espírito Santo</option>-->
-<!--                                            <option value="GO">Goiás</option>-->
-<!--                                            <option value="MA">Maranhão</option>-->
-<!--                                            <option value="MT">Mato Grosso</option>-->
-<!--                                            <option value="MS">Mato Grosso do Sul</option>-->
-<!--                                            <option value="MG">Minas Gerais</option>-->
-<!--                                            <option value="PA">Pará</option>-->
-<!--                                            <option value="PB">Paraíba</option>-->
-<!--                                            <option value="PR">Paraná</option>-->
-<!--                                            <option value="PE">Pernambuco</option>-->
-<!--                                            <option value="PI">Piauí</option>-->
-<!--                                            <option value="RJ">Rio de Janeiro</option>-->
-<!--                                            <option value="RN">Rio Grande do Norte</option>-->
-<!--                                            <option value="RS">Rio Grande do Sul</option>-->
-<!--                                            <option value="RO">Rondônia</option>-->
-<!--                                            <option value="RR">Roraima</option>-->
-<!--                                            <option value="SC">Santa Catarina</option>-->
-<!--                                            <option value="SP">São Paulo</option>-->
-<!--                                            <option value="SE">Sergipe</option>-->
-<!--                                            <option value="TO">Tocantins</option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                             </div>
 
                         </div>
@@ -533,6 +495,9 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" th:src="@{/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{/vendors/materialDesign/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/vendors/materialDesign/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/vendors/materialDesign/js/mdb.js}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 <script type="text/javascript" th:src="@{/vendors/sweetalert/sweetalert-dev.js}"></script>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>

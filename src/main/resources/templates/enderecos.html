@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layout-padrao}">
+<head>
+    <link rel="stylesheet" th:href="@{/vendors/slick/slick-theme.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/slick/slick.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/endereco.css}"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}"/>
+</head>
+<body>
+
+<section layout:fragment="conteudo">
+
+    <div class="container mt-100px"></div>
+
+    <div class="container" sec:authorize="isAnonymous()">
+        <h3 class="jumbotron text-center" style="margin-top: 250px; margin-bottom: 100px">
+            Ops... Para acessar os endereços da sua conta é necessário estar autenticado!
+        </h3>
+    </div>
+
+    <div class="container" sec:authorize="isAuthenticated()">
+        <h4 class="font-weight-bolder text-center">Cadastro de Endereço</h4>
+        <form id="formNewEndereco" onsubmit="validateAndSaveAddress(event)">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="cadNewEndRua">Rua *</label>
+                        <input id="cadNewEndRua"
+                               name="cadNewEndRua"
+                               class="form-control"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="cadNewEndBairro">Bairro *</label>
+                        <input id="cadNewEndBairro"
+                               name="cadNewEndBairro"
+                               class="form-control"
+                               type="text">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cadNewEndNro">Número *</label>
+                        <input id="cadNewEndNro"
+                               name="cadNewEndNro"
+                               class="form-control"
+                               type="number">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cadNewEndCep">CEP *</label>
+                        <input id="cadNewEndCep"
+                               name="cadNewEndCep"
+                               class="form-control"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="cadNewEndCidade">Cidade *</label>
+                        <input id="cadNewEndCidade"
+                               name="cadNewEndCidade"
+                               class="form-control"
+                               type="text">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cadNewEndTipo">Tipo de Endereco</label>
+                        <select name="cadNewEndTipo" id="cadNewEndTipo" class="form-control">
+                            <option value="P">Principal</option>
+                            <option value="C">Cobrança</option>
+                            <option value="A">Alternativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cadNewEndEstado">Estado</label>
+                        <input type="text"
+                               id="cadNewEndEstado"
+                               name="cadNewEndEstado"
+                               class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-amber"
+                        type="submit">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container" sec:authorize="isAuthenticated()">
+        <div class="divider-enderecos" id="divisor"></div>
+        <h4 class="text-center" id="titleEnderecos">Lista de Endereços</h4>
+        <h4 class="text-center" id="msgSemEndereco">Não há endereços cadastrados.</h4>
+        <div class="d-flex justify-content-between flex-wrap" id="enderecos"></div>
+    </div>
+
+</section>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/vendors/slick/slick.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/model/Endereco.js}"></script>
+    <script type="text/javascript" th:src="@{/js/util.js}"></script>
+    <script type="text/javascript" th:src="@{/js/enderecosCliente.js}"></script>
+</th:block>
+
+</body>
+</html>

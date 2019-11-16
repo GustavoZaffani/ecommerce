@@ -1,5 +1,6 @@
 package br.edu.utfpr.projeto.parte2.commerce.model;
 
+import br.edu.utfpr.projeto.parte2.commerce.enumeration.TipoEndereco;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,6 +45,9 @@ public class Endereco {
 
     @Column(name = "cep")
     private String cep;
+
+    @Column(name = "tipo")
+    private TipoEndereco tipoEndereco;
 
     @ManyToOne
     @JsonBackReference

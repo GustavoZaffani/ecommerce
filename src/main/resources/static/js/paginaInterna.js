@@ -55,7 +55,7 @@ function buildProdutosRelacionados(tipo) {
 
 function buildProdutoInterno() {
     $('#div-img-principal').append(`
-        <img class="h-90 max-width-90" src="${produto.caminhoCapa}" alt="${produto.nome}" id="img-principal">
+        <img class="h-90 max-width-90" src="${produto.imgCapa}" alt="${produto.nome}" id="img-principal">
     `);
     $('#div-img-complementares').append(`
 <!--        <img src="images/capasCompl/imgJogo1.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">-->

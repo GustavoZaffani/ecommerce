@@ -1,6 +1,8 @@
 package br.edu.utfpr.projeto.parte2.commerce.controller;
 
+import br.edu.utfpr.projeto.parte2.commerce.enumeration.TipoEndereco;
 import br.edu.utfpr.projeto.parte2.commerce.model.Cliente;
+import br.edu.utfpr.projeto.parte2.commerce.model.Endereco;
 import br.edu.utfpr.projeto.parte2.commerce.model.Permissao;
 import br.edu.utfpr.projeto.parte2.commerce.service.ClienteService;
 import br.edu.utfpr.projeto.parte2.commerce.service.PermissaoService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -35,7 +38,10 @@ public class ClienteController {
         }
         Set<Permissao> permissoes = new HashSet<>();
         permissoes.add(permissaoService.findOne(2));
-        cliente.getEnderecosList().forEach(endereco -> endereco.setCliente(cliente));
+        cliente.getEnderecosList().forEach(endereco -> {
+            endereco.setCliente(cliente);
+            endereco.setTipoEndereco(TipoEndereco.P);
+        });
         cliente.setPermissoes(permissoes);
         cliente.setPassword(new BCryptPasswordEncoder().encode(cliente.getPassword()));
         clienteService.save(cliente);
@@ -62,5 +68,16 @@ public class ClienteController {
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("endereco")
+    public String newEndereco() {
+        return "enderecos";
+    }
+
+    @GetMapping("endereco/{id}")
+    @ResponseBody
+    public List<Endereco> findEnderecosByCliente(@PathVariable("id") Long id) {
+        return clienteService.findOne(id).getEnderecosList();
     }
 }

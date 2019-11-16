@@ -42,3 +42,7 @@
     padding: 0;
     display: contents;
 }
+
+nav {
+    background-color: #1C2331 !important;
+}

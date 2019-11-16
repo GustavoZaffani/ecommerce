@@ -29,8 +29,8 @@ function montaJogos(produtos, idAppend) {
     produtos.forEach((produto) => {
         $(idAppend).append(`
             <div class="card card-jogo">
-                <div class="card-body-jogos">
-                    <img src="${produto.caminhoCapa}" alt="Capa ${produto.nome}" title="${produto.nome}" class="capa-jogo"/>
+                <div class="card-body-jogos" onclick="openDetalhes(${produto.id})">
+                    <img src="${produto.imgCapa}" alt="Capa ${produto.nome}" title="${produto.nome}" class="capa-jogo"/>
                     <h6 class="jogo-nome">${produto.nome}</h6>
                     <p> R$ ${produto.precoVenda}</p>
                     <p class="txt-parcelas">em até ${produto.qtdeParcelas} x de R$ ${calculaParcelas(produto.precoVenda, produto.qtdeParcelas)} sem juros</p>
@@ -46,6 +46,10 @@ function montaJogos(produtos, idAppend) {
             </div>
         `);
     });
+}
+
+function openDetalhes(id) {
+    window.location = "paginaProduto/" + id;
 }
 
 function carrossel() {
@@ -90,7 +94,7 @@ function buildProduto(produto) {
         produto.id,
         produto.nome,
         produto.precoVenda,
-        produto.caminhoCapa,
+        produto.imgCapa,
         produto.qtdeParcelas,
         produto.descAVista,
         produto.tipo);
