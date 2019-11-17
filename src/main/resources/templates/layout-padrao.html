@@ -22,6 +22,7 @@
     <link rel="stylesheet" th:href="@{/vendors/sweetalert/sweetalert.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/social/assets/css/font-awesome.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/social/bootstrap-social.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/jquery-toast-plugin-master/src/jquery.toast.css}"/>
     <link rel="stylesheet" th:href="@{/vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <link rel="stylesheet" th:href="@{/css/responsive.css}"/>
@@ -208,8 +209,8 @@
                                         <label for="cadDtNasc">Data Nascimento *</label>
                                         <input id="cadDtNasc"
                                                name="cadDtNasc"
-                                               class="form-control"
-                                               type="date">
+                                               class="form-control datepicker"
+                                               type="text">
                                     </div>
                                 </div>
                             </div>
@@ -500,13 +501,19 @@
 <script type="text/javascript" th:src="@{/vendors/materialDesign/js/mdb.js}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 <script type="text/javascript" th:src="@{/vendors/sweetalert/sweetalert-dev.js}"></script>
+<script type="text/javascript" th:src="@{/vendors/jquery-toast-plugin-master/src/jquery.toast.js}"></script>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>
 <script type="text/javascript" th:src="@{/js/layout-padrao.js}"></script>
+<script type="text/javascript" th:src="@{/js/messages.js}"></script>
 <script type="text/javascript" th:src="@{/js/util.js}"></script>
 <script type="text/javascript" th:src="@{/js/validations.js}"></script>
 <script type="text/javascript" th:src="@{/js/model/Cliente.js}"></script>
 <script type="text/javascript" th:src="@{/js/model/Endereco.js}"></script>
 <script type="text/javascript" th:src="@{/js/service/clienteService.js}"></script>
+<script type="text/javascript">$('.datepicker').datepicker({
+    format: 'dd/mm/yyyy',
+    autoclose: true
+})</script>
 <th:block layout:fragment="script"></th:block>
 </body>
 </html>

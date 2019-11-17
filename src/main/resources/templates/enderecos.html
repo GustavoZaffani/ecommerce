@@ -27,6 +27,18 @@
     <div class="container" sec:authorize="isAuthenticated()">
         <h4 class="font-weight-bolder text-center">Cadastro de Endereço</h4>
         <form id="formNewEndereco" onsubmit="validateAndSaveAddress(event)">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input id="cadNewEndCod"
+                               name="cadNewEndCod"
+                               class="form-control"
+                               type="hidden">
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">

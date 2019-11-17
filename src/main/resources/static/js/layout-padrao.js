@@ -1,7 +1,35 @@
+var totalCarrinho = 0;
+
 $(function () {
     buildCompletes();
+    montaCardCarrinho();
     initMasks();
 });
+
+function desmontaCardCarrinho() {
+    $('li#itemCar').remove();
+    totalCarrinho = 0;
+}
+
+function montaCardCarrinho() {
+    $.get('session', function (carrinhoList) {
+       desmontaCardCarrinho();
+       if (carrinhoList != null) {
+           carrinhoList.forEach((carrinho) => {
+               totalCarrinho = totalCarrinho + (carrinho.valor * carrinho.qtde);
+               $('#itensCard').append(`
+                    <li id="itemCar" class="p-2">
+                        <img class="img-card-view" src="${carrinho.produto}" alt=""/>
+                        <span class="abbreviate">${carrinho.produto.nome}</span>
+                        <span>R$ ${formataMoeda(carrinho.valor * carrinho.qtde)}</span>
+                    </li>
+               `);
+           });
+           $('#carrinho-view-details-total').text('Total: R$ ' + formataMoeda(totalCarrinho));
+       }
+
+    });
+}
 
 function openLogin() {
     $('#modalLogin').modal();
@@ -40,10 +68,11 @@ function openForm() {
             $('#cadEndBairro').val(cliente.enderecosList[0].bairro);
             $('#cadEndCep').val(cliente.enderecosList[0].cep);
             $('#cadEndNro').val(cliente.enderecosList[0].nro);
-            $('#cidade').val(cliente.enderecosList[0].cidade);
-            $('#estado').val(cliente.enderecosList[0].estado);
+            $('#cidade').val(cliente.enderecosList[0].cidade.id);
+            $('#estado').val(cliente.enderecosList[0].estado.id);
             $('#cadEndObs').val(cliente.observacao);
             findDadosOnEdit();
+            initMasks();
         }
         openModalCadUsuario(false);
     });
@@ -111,12 +140,12 @@ function findDadosOnEdit() {
     let estado = $('#estado').val();
     if (cidade != null && cidade !== "" &&
         estado != null && estado !== "") {
-        $.get(`estado/${$('#estado').val()}`, function (data) {
+        $.get(`http://localhost:8025/fornecedor/estado/${$('#estado').val()}`, function (data) {
             if (data != null) {
                 $('#estado').val(data.id + " - " + data.nome);
             }
         });
-        $.get(`cidade/${$('#cidade').val()}`, function (data) {
+        $.get(`http://localhost:8025/fornecedor/cidade/${$('#cidade').val()}`, function (data) {
             if (data != null) {
                 $('#cidade').val(data.id + " - " + data.nome);
             }

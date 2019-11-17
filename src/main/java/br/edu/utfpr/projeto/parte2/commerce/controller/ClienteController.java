@@ -16,9 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("cliente")
@@ -75,9 +77,37 @@ public class ClienteController {
         return "enderecos";
     }
 
-    @GetMapping("endereco/{id}")
+    @GetMapping("endereco/{user}")
     @ResponseBody
-    public List<Endereco> findEnderecosByCliente(@PathVariable("id") Long id) {
-        return clienteService.findOne(id).getEnderecosList();
+    public List<Endereco> findEnderecosByCliente(@PathVariable("user") String user) {
+        return clienteService.findByUsername(user).getEnderecosList();
     }
+
+    @PostMapping("endereco/save/{cliente}")
+    public ResponseEntity saveEnderecos(@PathVariable("cliente") String cliente,
+                                        @RequestBody List<Endereco> enderecos) {
+        try {
+            Cliente cli = clienteService.findByUsername(cliente);
+            cli.setEnderecosList(enderecos);
+            cli.getEnderecosList().forEach(endereco -> endereco.setCliente(cli));
+            clienteService.save(cli);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("endereco/delete/{cliente}/{id}")
+    public ResponseEntity deleteEndereco(@PathVariable("cliente") String cliente,
+                                         @PathVariable("id") Long idEndereco) {
+        try {
+            Cliente cli = clienteService.findByUsername(cliente);
+            cli.getEnderecosList().removeIf(endereco -> endereco.getId() == idEndereco);
+            clienteService.save(cli);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

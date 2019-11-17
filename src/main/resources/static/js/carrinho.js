@@ -17,6 +17,7 @@ $(function () {
     validaDadosCliente();
 });
 
+
 function initStep() {
     $('#dadosCliente').show();
     $('#dadosCompra').hide();
@@ -116,9 +117,8 @@ function confirmarDadosCompra() {
 
 function montaListaJogos() {
     desmontaListaJogos();
-    getProdutosCarrinho();
-    if (carrinhoItemList != null && carrinhoItemList.length > 0) {
-        carrinhoItemList.forEach((itemCarrinho) => {
+    $.get('session', function (carrinhoList) {
+        carrinhoList.forEach((itemCarrinho) => {
             $('#listaJogosCarrinho').append(`
                 <li id="itemListCarrinho" class="p-2 list-group-item d-flex align-items-center justify-content-between">
                     <img class="img-card-view" src="${itemCarrinho.produto.caminhoCapa}" alt=""/>
@@ -138,7 +138,7 @@ function montaListaJogos() {
                 </li>    
             `);
         });
-    }
+    });
     if (carrinhoItemList.length == 0) {
         buildItensCarrinho();
     }

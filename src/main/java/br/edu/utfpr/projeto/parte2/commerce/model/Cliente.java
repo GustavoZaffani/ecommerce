@@ -1,6 +1,10 @@
 package br.edu.utfpr.projeto.parte2.commerce.model;
 
+import br.edu.utfpr.projeto.parte2.commerce.config.LocalDateDeserializer;
+import br.edu.utfpr.projeto.parte2.commerce.config.LocalDateSerializer;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,6 +43,8 @@ public class Cliente implements Serializable, UserDetails {
     @Column(name = "cpf", nullable = false)
     private String cpf;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @NotNull(message = "O campo 'Data de Nascimento' é de preenchimento obrigatório")
     @Column(name = "dt_nasc", nullable = false)
     private LocalDate dtNascimento;
@@ -49,8 +55,8 @@ public class Cliente implements Serializable, UserDetails {
     @Column(name = "tel_cel")
     private String telCel;
 
-    @OneToMany(mappedBy = "cliente", orphanRemoval = true,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonManagedReference
     private List<Endereco> enderecosList;
 

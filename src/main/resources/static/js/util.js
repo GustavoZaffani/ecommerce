@@ -38,13 +38,40 @@ function montaJogos(produtos, idAppend) {
                 </div>
                 <div>
                     <button class="btn btn-amber btn-jogos"
-                            type="button"
-                            onclick="inserirCarrinho(${produto.id},'` + produto.tipo + `', false)">
-                            Comprar
+                        type="button"
+                        onclick="inserirCarrinho(${produto.id})">
+                        Comprar
                     </button>
                 </div>
             </div>
         `);
+    });
+}
+
+function inserirCarrinho(id) {
+    $.ajax({
+        type: 'GET',
+        url: `session/add/${id}/1`,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            msgSucInseridoNoCarrinho();
+            montaCardCarrinho();
+            // swal({
+            //     title: 'Salvo!',
+            //     text: 'Registro salvo com sucesso!',
+            //     type: 'success'
+            // }, function () {
+            //     window.location = '/cliente/endereco';
+            //     montaCardCarrinho();
+            // });
+        }, error: function (data) {
+            console.log(data);
+            swal(
+                'Atenção!',
+                'Ocorreu um erro ao salvar o registro. Por favor, tente novamente!',
+                'error'
+            );
+        }
     });
 }
 

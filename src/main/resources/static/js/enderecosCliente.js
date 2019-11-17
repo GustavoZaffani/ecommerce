@@ -22,7 +22,7 @@ function buildEndereco(callback) {
     let idCidade = $('#cadNewEndCidade').val().split(" ");
 
     endereco = new Endereco(
-        null,
+        $('#cadNewEndCod').val() != '' ? $('#cadNewEndCod').val() : null,
         $('#cadNewEndRua').val(),
         $('#cadNewEndBairro').val(),
         $('#cadNewEndNro').val(),
@@ -54,28 +54,52 @@ function saveEndereco() {
             findEnderecos(function (callback) {
                 if (callback) {
                     enderecosList.push(endereco);
-                    buildCardEnderecos();
+                    save();
                 }
             });
         }
     });
-    clearForm();
+}
+
+function save() {
+    $.ajax({
+        type: 'POST',
+        url: `/cliente/endereco/save/${$('#usuario').text()}`,
+        data: JSON.stringify(enderecosList),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            swal({
+                title: 'Salvo!',
+                text: 'Registro salvo com sucesso!',
+                type: 'success'
+            }, function () {
+                window.location = '/cliente/endereco';
+            });
+        }, error: function (data) {
+            console.log(data);
+            swal(
+                'Atenção!',
+                'Ocorreu um erro ao salvar o registro. Por favor, tente novamente!',
+                'error'
+            );
+        }
+    });
 }
 
 function findEnderecos(complete) {
     enderecosList = new Array();
-    $.get('http://localhost:18025/cliente/endereco/1', function (enderecos) {
+    $.get(`http://localhost:18025/cliente/endereco/${$('#usuario').text()}`, function (enderecos) {
         if (enderecos != null) {
-            enderecos.forEach(endereco => {
+            enderecos.forEach(enderecoBd => {
                 let enderecoReturn = new Endereco(
-                    endereco.id,
-                    endereco.endereco,
-                    endereco.bairro,
-                    endereco.nro,
-                    endereco.estado,
-                    endereco.cidade,
-                    endereco.cep,
-                    endereco.tipoEndereco
+                    enderecoBd.id,
+                    enderecoBd.endereco,
+                    enderecoBd.bairro,
+                    enderecoBd.nro,
+                    enderecoBd.estado,
+                    enderecoBd.cidade,
+                    enderecoBd.cep,
+                    enderecoBd.tipoEndereco
                 );
                 enderecosList.push(enderecoReturn);
             });
@@ -85,13 +109,34 @@ function findEnderecos(complete) {
 }
 
 function excluir(id) {
-    alert('Quer excluir krl!!');
+    $.ajax({
+        type: 'DELETE',
+        url: `/cliente/endereco/delete/${$('#usuario').text()}/${id}`,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            swal({
+                title: 'Removido!',
+                text: 'Registro removido com sucesso!',
+                type: 'success'
+            }, function () {
+                window.location = '/cliente/endereco';
+            });
+        }, error: function (data) {
+            console.log(data);
+            swal(
+                'Atenção!',
+                'Ocorreu um erro ao remover o registro. Por favor, tente novamente!',
+                'error'
+            );
+        }
+    });
 }
 
 function edit(id) {
     enderecoEdit = true;
     enderecosList.forEach(endereco => {
         if (endereco.id == id) {
+            $('#cadNewEndCod').val(endereco.id),
             $('#cadNewEndRua').val(endereco.endereco),
             $('#cadNewEndBairro').val(endereco.bairro),
             $('#cadNewEndCep').val(endereco.cep),
