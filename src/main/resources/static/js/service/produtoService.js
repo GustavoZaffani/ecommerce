@@ -70,7 +70,6 @@ function findAllJogosNintendo(callbackRetorno) {
                 });
                 callbackRetorno(produtoNintendo);
             }
-            carrossel();
         }
     });
 }

@@ -12,7 +12,7 @@ function desmontaCardCarrinho() {
 }
 
 function montaCardCarrinho() {
-    $.get('session', function (carrinhoList) {
+    $.get('http://localhost:18025/session', function (carrinhoList) {
        desmontaCardCarrinho();
        if (carrinhoList != null) {
            carrinhoList.forEach((carrinho) => {

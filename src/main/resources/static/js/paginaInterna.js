@@ -10,6 +10,7 @@ $(function () {
         buildProdutosRelacionados(produto.tipo);
         montaParcelas();
     });
+    updateQtdeItensCar();
 });
 
 function montaParcelas() {
@@ -71,4 +72,11 @@ function buildProdutoInterno() {
         calculaParcelas(produto.precoVenda, produto.qtdeParcelas) + ' sem juros.');
     $('#precoAvista').text('ou R$ ' + calculaPrecoAvista(produto.precoVenda, produto.descAVista)
         + ' via Boleto Bancário');
+}
+
+function goToCart() {
+    inserirCarrinho(id);
+    setTimeout(function () {
+        window.location = "/carrinho";
+    }, 1500);
 }

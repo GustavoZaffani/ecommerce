@@ -51,19 +51,12 @@ function montaJogos(produtos, idAppend) {
 function inserirCarrinho(id) {
     $.ajax({
         type: 'GET',
-        url: `session/add/${id}/1`,
+        url: `http://localhost:18025/session/add/${id}/1`,
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             msgSucInseridoNoCarrinho();
             montaCardCarrinho();
-            // swal({
-            //     title: 'Salvo!',
-            //     text: 'Registro salvo com sucesso!',
-            //     type: 'success'
-            // }, function () {
-            //     window.location = '/cliente/endereco';
-            //     montaCardCarrinho();
-            // });
+            updateQtdeItensCar();
         }, error: function (data) {
             console.log(data);
             swal(
@@ -228,4 +221,14 @@ function hiddenElement(element, displayOld) {
 function removeSimbolos(texto) {
     texto = texto.replace(/[^\d]+/g,'');
     return texto;
+}
+
+function updateQtdeItensCar() {
+    $.get('http://localhost:18025/session/qtde', function (qtde) {
+        if (qtde != null) {
+            $("#qtdeItensCar").text(qtde);
+            $('#carrinho-view-details-qtde').text(qtde + ' produtos no carrinho');
+        }
+    });
+
 }

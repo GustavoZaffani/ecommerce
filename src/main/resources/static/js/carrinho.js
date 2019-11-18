@@ -3,20 +3,18 @@ var vlrFixedCarrinho;
 var dadosClienteIsOk = false;
 var dadosConfirmacaoIsOk = false;
 var dadosCompraIsOk = false;
+var carrinhoItemList = new Array();
 
 $(function () {
-    createDropdownUser();
-    verificaUsuarioLogado();
-    verificaQtdeItensCar();
-    dadosCadastro();
     buildItensCarrinho();
     montaListaJogos();
     initStep();
     initMasks();
     montaCardCarrinho();
     validaDadosCliente();
+    updateQtdeItensCar();
+    dadosCadastro();
 });
-
 
 function initStep() {
     $('#dadosCliente').show();
@@ -41,11 +39,13 @@ function desmontaListaJogosFinaliza() {
 
 function buildItensCarrinho() {
     if (hasProdutoCar()) {
+        console.log('tem produto, krl');
         $('#msgCarEmpty').hide();
         $('#listaJogosCarrinho').show();
         $('#btnFinalizaCar').attr('disabled', false);
         $('#btnExcluirCar').attr('disabled', false);
     } else {
+        console.log('n tem produto, krl');
         $('#listaJogosCarrinho').hide();
         $('#msgCarEmpty').show();
         $('#btnFinalizaCar').attr('disabled', true);
@@ -53,9 +53,16 @@ function buildItensCarrinho() {
     }
 }
 
+function hasProdutoCar() {
+    if (carrinhoItemList != null && carrinhoItemList.length > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function montaTableConfirmacaoProduto() {
     desmontaTableListProdutos();
-    getProdutosCarrinho();
     carrinhoItemList.forEach((item) => {
        $('#dadosConfirmacaoProduto').append(`
             <tr id="listProdutosConfirm">
@@ -117,31 +124,67 @@ function confirmarDadosCompra() {
 
 function montaListaJogos() {
     desmontaListaJogos();
-    $.get('session', function (carrinhoList) {
-        carrinhoList.forEach((itemCarrinho) => {
-            $('#listaJogosCarrinho').append(`
-                <li id="itemListCarrinho" class="p-2 list-group-item d-flex align-items-center justify-content-between">
-                    <img class="img-card-view" src="${itemCarrinho.produto.caminhoCapa}" alt=""/>
-                    <span class="w-30"">${itemCarrinho.produto.nome}</span>
-                    <span class="w-15">R$ ${formataMoeda(itemCarrinho.produto.preco * itemCarrinho.qtde)}</span>
-                    <div class="d-flex justify-content-around align-items-center w-30">
-                        <div class="d-flex align-items-center">
-                            <i onclick="upDownQtdeCarrinhoItem(true, ${itemCarrinho.produto.id}, '` + itemCarrinho.produto.tipo + `')" 
-                                class="fa fa-2x fa-arrow-circle-o-up pointer" title="Aumentar"></i>
-                            <span class="px-2">${itemCarrinho.qtde}</span>
-                            <i onclick="upDownQtdeCarrinhoItem(false, ${itemCarrinho.produto.id}, '` + itemCarrinho.produto.tipo + `')" 
-                                class="fa fa-2x fa-arrow-circle-o-down pointer" title="Diminuir"></i>                    
+    $.get('http://localhost:18025/session', function (carrinhoList) {
+        if (carrinhoList != null) {
+            carrinhoItemList = carrinhoList;
+            carrinhoList.forEach((itemCarrinho) => {
+                $('#listaJogosCarrinho').append(`
+                    <li id="itemListCarrinho" class="p-2 list-group-item d-flex align-items-center justify-content-between">
+                        <img class="img-card-view" src="${itemCarrinho.produto.caminhoCapa}" alt=""/>
+                        <span class="w-30"">${itemCarrinho.produto.nome}</span>
+                        <span class="w-15">R$ ${formataMoeda(itemCarrinho.produto.preco * itemCarrinho.qtde)}</span>
+                        <div class="d-flex justify-content-around align-items-center w-30">
+                            <div class="d-flex align-items-center">
+                                <i onclick="upDownQtdeCarrinhoItem(true, ${itemCarrinho.produto.id})" 
+                                    class="fa fa-2x fa-arrow-circle-o-up pointer" title="Aumentar"></i>
+                                <span class="px-2">${itemCarrinho.qtde}</span>
+                                <i onclick="upDownQtdeCarrinhoItem(false, ${itemCarrinho.produto.id}, '` + itemCarrinho.produto.tipo + `')" 
+                                    class="fa fa-2x fa-arrow-circle-o-down pointer" title="Diminuir"></i>                    
+                            </div>
+                            <i onclick="deleteProdutoCar(${itemCarrinho.produto.id})" 
+                                class="fa fa-2x fa-trash-o pointer" title="Remover"></i>
                         </div>
-                        <i onclick="deleteProdutoCarByIdTipo(`+ itemCarrinho.produto.id +`, '` + itemCarrinho.produto.tipo + `')" 
-                            class="fa fa-2x fa-trash-o pointer" title="Remover"></i>
-                    </div>
-                </li>    
-            `);
+                    </li>    
+                `);
+            });
+            buildItensCarrinho();
+        }
+    });
+}
+
+function upDownQtdeCarrinhoItem(aumenta, id) {
+    var qtde;
+    aumenta == true ? qtde = 1 : qtde = -1;
+
+    $.ajax({
+        type: 'GET',
+        url: `session/add/${id}/${qtde}`,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            montaListaJogos();
+            montaCardCarrinho();
+            updateQtdeItensCar();
+        }, error: function (data) {
+            console.log(data);
+            swal(
+                'Atenção!',
+                'Ocorreu um erro ao salvar o registro. Por favor, tente novamente!',
+                'error'
+            );
+        }
+    });
+}
+
+function deleteProdutoCar(id) {
+    $.get(`session/remove/${id}`, function () {
+        swal({
+            title: 'Removido!',
+            text: 'Produto removido com sucesso!',
+            type: 'success'
+        }, function () {
+            window.location = '/carrinho';
         });
     });
-    if (carrinhoItemList.length == 0) {
-        buildItensCarrinho();
-    }
 }
 
 function setFrete(valor) {
@@ -270,8 +313,7 @@ function loadOutrasInformacoes() {
 }
 
 function dadosCadastro() {
-    let userLogado = localStorage.getItem('userLogado');
-    if (userLogado == null) {
+    if ($('#usuario').text() == '') {
         $('#dadosCliente').append(`
             <p>Por favor, realize o login em nossa loja, para que possamos continuar!</p>
             <form id="formLoginFinaliza" onsubmit="login(event, false, true)">
@@ -442,9 +484,10 @@ function excluirCarrinho() {
 }
 
 function deletarCarrinho() {
-    dropCarrinho();
-    $('#modalConfirmDelete').hide();
-    window.location.reload();
+    $.get('http://localhost:18025/session/clear', function () {
+        $('#modalConfirmDelete').hide();
+        window.location.reload();
+    });
 }
 
 function confirmaDados(event) {

@@ -26,7 +26,7 @@ public class CarrinhoItem {
     private Produto produto;
 
     @Column(name = "qtde", nullable = false)
-    private BigDecimal qtde;
+    private Integer qtde;
 
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;

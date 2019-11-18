@@ -4,6 +4,7 @@ $(function () {
    loadProdutos();
    listenerDropDown();
    loadAvaliacoes();
+   updateQtdeItensCar();
 });
 
 function loadProdutos() {
@@ -15,6 +16,9 @@ function loadProdutos() {
     });
     findAllJogosNintendo(function (retorno) {
         montaJogos(retorno, "#gameNintendo");
+        setTimeout(function () {
+            carrossel();
+        }, 500);
     });
 }
 
