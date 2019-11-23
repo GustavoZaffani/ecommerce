@@ -30,7 +30,7 @@ function montaJogos(produtos, idAppend) {
         $(idAppend).append(`
             <div class="card card-jogo">
                 <div class="card-body-jogos" onclick="openDetalhes(${produto.id})">
-                    <img src="${produto.imgCapa}" alt="Capa ${produto.nome}" title="${produto.nome}" class="capa-jogo"/>
+                    <img src="img/capas/capaGow.jpg" alt="Capa ${produto.nome}" title="${produto.nome}" class="capa-jogo"/>
                     <h6 class="jogo-nome">${produto.nome}</h6>
                     <p> R$ ${produto.precoVenda}</p>
                     <p class="txt-parcelas">em até ${produto.qtdeParcelas} x de R$ ${calculaParcelas(produto.precoVenda, produto.qtdeParcelas)} sem juros</p>
@@ -48,25 +48,25 @@ function montaJogos(produtos, idAppend) {
     });
 }
 
-function inserirCarrinho(id) {
-    $.ajax({
-        type: 'GET',
-        url: `http://localhost:18025/session/add/${id}/1`,
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            msgSucInseridoNoCarrinho();
-            montaCardCarrinho();
-            updateQtdeItensCar();
-        }, error: function (data) {
-            console.log(data);
-            swal(
-                'Atenção!',
-                'Ocorreu um erro ao salvar o registro. Por favor, tente novamente!',
-                'error'
-            );
-        }
-    });
-}
+// function inserirCarrinho(id) {
+//     $.ajax({
+//         type: 'GET',
+//         url: `http://localhost:18025/session/add/${id}/1`,
+//         contentType: "application/json; charset=utf-8",
+//         success: function (data) {
+//             msgSucInseridoNoCarrinho();
+//             montaCardCarrinho();
+//             updateQtdeItensCar();
+//         }, error: function (data) {
+//             console.log(data);
+//             swal(
+//                 'Atenção!',
+//                 'Ocorreu um erro ao salvar o registro. Por favor, tente novamente!',
+//                 'error'
+//             );
+//         }
+//     });
+// }
 
 function openDetalhes(id) {
     window.location = "paginaProduto/" + id;

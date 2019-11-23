@@ -1,5 +1,3 @@
-var enderecosList = new Array();
-var enderecoEdit = false;
 var endereco;
 
 $(function () {
@@ -86,27 +84,7 @@ function save() {
     });
 }
 
-function findEnderecos(complete) {
-    enderecosList = new Array();
-    $.get(`http://localhost:18025/cliente/endereco/${$('#usuario').text()}`, function (enderecos) {
-        if (enderecos != null) {
-            enderecos.forEach(enderecoBd => {
-                let enderecoReturn = new Endereco(
-                    enderecoBd.id,
-                    enderecoBd.endereco,
-                    enderecoBd.bairro,
-                    enderecoBd.nro,
-                    enderecoBd.estado,
-                    enderecoBd.cidade,
-                    enderecoBd.cep,
-                    enderecoBd.tipoEndereco
-                );
-                enderecosList.push(enderecoReturn);
-            });
-            complete(true);
-        }
-    });
-}
+
 
 function excluir(id) {
     $.ajax({
@@ -133,7 +111,6 @@ function excluir(id) {
 }
 
 function edit(id) {
-    enderecoEdit = true;
     enderecosList.forEach(endereco => {
         if (endereco.id == id) {
             $('#cadNewEndCod').val(endereco.id),
@@ -182,17 +159,6 @@ function buildCardEnderecos() {
             }
         }
     });
-}
-
-function getTipoEndereco(tipo) {
-    if (tipo === 'A') {
-        return 'Endereço Alternativo';
-    } else if (tipo === 'P') {
-        return 'Endereço Principal';
-    } else {
-        return 'Endereço Cobrança';
-    }
-
 }
 
 function dropListEnderecos() {

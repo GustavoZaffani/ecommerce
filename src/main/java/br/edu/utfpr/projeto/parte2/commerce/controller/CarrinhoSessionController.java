@@ -1,14 +1,18 @@
 package br.edu.utfpr.projeto.parte2.commerce.controller;
 
 import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoItem;
+import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoItemSession;
 import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoSession;
 import br.edu.utfpr.projeto.parte2.commerce.model.Produto;
 import br.edu.utfpr.projeto.parte2.commerce.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,67 +27,94 @@ public class CarrinhoSessionController {
     private Integer qtde;
 
     @ModelAttribute("carrinhoList")
-    private List<CarrinhoSession> getCarrinhoList() {
-        return new ArrayList<>();
+    private CarrinhoSession getCarrinho() {
+        CarrinhoSession carrinhoSession = new CarrinhoSession();
+        carrinhoSession.setCarrinhoItemSessions(new ArrayList<>());
+        return carrinhoSession;
     }
 
     @GetMapping("add/{id}/{qtde}")
     public String addItemCarrinho(@PathVariable("id") Long id,
                                   @PathVariable("qtde") Integer qtde,
-                                  @ModelAttribute("carrinhoList") List<CarrinhoSession> carrinhoSessions) {
+                                  @ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
         this.novoItem = true;
-        carrinhoSessions.forEach(carrinhoSession -> {
-            if (carrinhoSession.getIdProduto() == id) {
-                carrinhoSession.setQtde(carrinhoSession.getQtde() + qtde);
-                this.novoItem = false;
-            }
-        });
+        if (carrinhoSession.getCarrinhoItemSessions().size() > 0) {
+            carrinhoSession.getCarrinhoItemSessions().forEach(carrinhoItemSession -> {
+                if (carrinhoItemSession.getIdProduto() == id) {
+                    carrinhoItemSession.setQtde(carrinhoItemSession.getQtde() + qtde);
+                    this.novoItem = false;
+                }
+            });
+        }
         if (this.novoItem) {
-            CarrinhoSession carrinhoSession = new CarrinhoSession();
-            carrinhoSession.setIdProduto(id);
-            carrinhoSession.setQtde(qtde);
-            carrinhoSessions.add(carrinhoSession);
+            CarrinhoItemSession carrinhoItemSession = new CarrinhoItemSession();
+            carrinhoItemSession.setIdProduto(id);
+            carrinhoItemSession.setQtde(qtde);
+            carrinhoSession.getCarrinhoItemSessions().add(carrinhoItemSession);
         }
         return "redirect:/";
     }
 
     @GetMapping
     @ResponseBody
-    public List<CarrinhoItem> list(@ModelAttribute("carrinhoList") List<CarrinhoSession> carrinhoSessions) {
+    public List<CarrinhoItem> list(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
         List<CarrinhoItem> toReturn = new ArrayList<>();
-        carrinhoSessions.forEach(carrinhoSession -> {
-            Produto produto = produtoService.findOne(carrinhoSession.getIdProduto());
 
-            CarrinhoItem carrinhoItem = new CarrinhoItem();
-            carrinhoItem.setQtde(carrinhoSession.getQtde());
-            carrinhoItem.setProduto(produto);
-            carrinhoItem.setValor(produto.getPrecoVenda());
-            toReturn.add(carrinhoItem);
-        });
+        if (carrinhoSession.getCarrinhoItemSessions().size() > 0) {
+            carrinhoSession.getCarrinhoItemSessions().forEach(carrinhoItemSession -> {
+                Produto produto = produtoService.findOne(carrinhoItemSession.getIdProduto());
+
+                CarrinhoItem carrinhoItem = new CarrinhoItem();
+                carrinhoItem.setQtde(carrinhoItemSession.getQtde());
+                carrinhoItem.setProduto(produto);
+                carrinhoItem.setValor(produto.getPrecoVenda());
+                toReturn.add(carrinhoItem);
+            });
+        }
         return toReturn;
     }
 
     @GetMapping("qtde")
     @ResponseBody
-    public Integer getCountQtde(@ModelAttribute("carrinhoList") List<CarrinhoSession> carrinhoSessions) {
+    public Integer getCountQtde(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
         qtde = 0;
-        carrinhoSessions.forEach(carrinhoSession -> {
-            qtde += carrinhoSession.getQtde();
-        });
+        if (carrinhoSession.getCarrinhoItemSessions().size() > 0) {
+            carrinhoSession.getCarrinhoItemSessions().forEach(carrinhoItemSession -> {
+                qtde += carrinhoItemSession.getQtde();
+            });
+        }
         return qtde;
     }
 
     @GetMapping("remove/{id}")
     public String removeItemCarrinho(@PathVariable Long id,
-                                     Model model,
-                                     @ModelAttribute("carrinhoList") List<CarrinhoSession> carrinhoSessions) {
-        carrinhoSessions.removeIf(carrinhoSession -> carrinhoSession.getIdProduto() == id);
+                                     @ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
+        if (carrinhoSession.getCarrinhoItemSessions().size() > 0) {
+            carrinhoSession.getCarrinhoItemSessions().removeIf(carrinhoItemSession -> carrinhoItemSession.getIdProduto() == id);
+        }
         return "carrinho";
     }
 
     @GetMapping("clear")
-    public String clearItensCarrinho(@ModelAttribute("carrinhoList") List<CarrinhoSession> carrinhoSessions) {
-        carrinhoSessions = new ArrayList<>();
+    public String clearItensCarrinho(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
+        CarrinhoSession carrinhoSession1 = new CarrinhoSession();
+        carrinhoSession1.setCarrinhoItemSessions(new ArrayList<>());
+        carrinhoSession = carrinhoSession1;
         return "redirect:/carrinho";
     }
+
+    @GetMapping("add-frete/{frete}")
+    @ResponseBody
+    public ResponseEntity setFreteCarrinho(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession,
+                                           @PathVariable("frete") BigDecimal frete) {
+        carrinhoSession.setTaxaEntrega(frete);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @GetMapping("frete")
+    @ResponseBody
+    public BigDecimal getFreteCarrinho(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
+        return carrinhoSession.getTaxaEntrega() != null ? carrinhoSession.getTaxaEntrega() : new BigDecimal(0);
+    }
+
 }

@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,6 +33,13 @@ public class Carrinho {
 
     @Column(name = "dt_venda", nullable = false)
     private LocalDate dtVenda;
+
+    @ManyToOne
+    @JoinColumn(name = "id_endereco_entrega", referencedColumnName = "id")
+    private Endereco enderecoEntrega;
+
+    @Column(name = "taxa_frete", nullable = false)
+    private BigDecimal taxaFrete;
 
     @Column(name = "obs", nullable = false)
     private String obs;
