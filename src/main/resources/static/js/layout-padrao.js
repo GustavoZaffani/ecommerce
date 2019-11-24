@@ -19,7 +19,7 @@ function montaCardCarrinho() {
                totalCarrinho = totalCarrinho + (carrinho.valor * carrinho.qtde);
                $('#itensCard').append(`
                     <li id="itemCar" class="p-2">
-                        <img class="img-card-view" src="${carrinho.produto}" alt=""/>
+                        <img class="img-card-view" src="../img/capas/capa${carrinho.produto.id}.jpg" alt=""/>
                         <span class="abbreviate">${carrinho.produto.nome}</span>
                         <span>R$ ${formataMoeda(carrinho.valor * carrinho.qtde)}</span>
                     </li>
@@ -27,12 +27,7 @@ function montaCardCarrinho() {
            });
            $('#carrinho-view-details-total').text('Total: R$ ' + formataMoeda(totalCarrinho));
        }
-
     });
-}
-
-function openLogin() {
-    $('#modalLogin').modal();
 }
 
 function openModalCadUsuario(isNew) {
@@ -52,6 +47,8 @@ function initMasks() {
     $('#cadTelCel').mask('(99)99999-9999');
     $('#cadTelRes').mask('(99)9999-9999');
     $('#cadEndCep').mask('99999-999');
+    $('#simulaCep').mask('99999-999');
+    $('#confCep').mask('99999-999');
 }
 
 function openForm() {

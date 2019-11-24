@@ -1,20 +1,18 @@
 package br.edu.utfpr.projeto.parte2.commerce.controller;
 
-import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoItem;
-import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoItemSession;
-import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoSession;
-import br.edu.utfpr.projeto.parte2.commerce.model.Produto;
+import br.edu.utfpr.projeto.parte2.commerce.model.*;
+import br.edu.utfpr.projeto.parte2.commerce.service.ClienteService;
 import br.edu.utfpr.projeto.parte2.commerce.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("session")
@@ -23,6 +21,8 @@ public class CarrinhoSessionController {
 
     @Autowired
     ProdutoService produtoService;
+    @Autowired
+    ClienteService clienteService;
     private Boolean novoItem;
     private Integer qtde;
 
@@ -115,6 +115,29 @@ public class CarrinhoSessionController {
     @ResponseBody
     public BigDecimal getFreteCarrinho(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
         return carrinhoSession.getTaxaEntrega() != null ? carrinhoSession.getTaxaEntrega() : new BigDecimal(0);
+    }
+
+    @GetMapping("endereco/save/{id}")
+    @ResponseBody
+    public ResponseEntity setEnderecoEntrega(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession,
+                                             @PathVariable("id") Long id) {
+        carrinhoSession.setIdEnderecoEntrega(id);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @GetMapping("endereco/{user}")
+    @ResponseBody
+    public Endereco getEnderecoEntrega(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession,
+                                       @PathVariable("user") String user) {
+        carrinhoSession.setUserCliente(user);
+            List<Endereco> enderecosList = clienteService.findByUsername(user).getEnderecosList();
+        return enderecosList.stream().filter(endereco -> endereco.getId() == carrinhoSession.getIdEnderecoEntrega()).collect(Collectors.toList()).get(0);
+    }
+
+    @GetMapping("dados-session")
+    @ResponseBody
+    public CarrinhoSession getDadosSession(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
+        return carrinhoSession;
     }
 
 }

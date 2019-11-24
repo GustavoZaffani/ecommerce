@@ -30,9 +30,9 @@ function montaJogos(produtos, idAppend) {
         $(idAppend).append(`
             <div class="card card-jogo">
                 <div class="card-body-jogos" onclick="openDetalhes(${produto.id})">
-                    <img src="img/capas/capaGow.jpg" alt="Capa ${produto.nome}" title="${produto.nome}" class="capa-jogo"/>
+                    <img src="../img/capas/capa${produto.id}.jpg" alt="Capa ${produto.nome}" title="${produto.nome}" class="capa-jogo"/>
                     <h6 class="jogo-nome">${produto.nome}</h6>
-                    <p> R$ ${produto.precoVenda}</p>
+                    <p> R$ ${formataMoeda(produto.precoVenda)}</p>
                     <p class="txt-parcelas">em até ${produto.qtdeParcelas} x de R$ ${calculaParcelas(produto.precoVenda, produto.qtdeParcelas)} sem juros</p>
                     <p class="jogo-details-avista"> À vista ${produto.descAVista} % de desconto R$ ${calculaPrecoAvista(produto.precoVenda, produto.descAVista)}</p>                    
                 </div>
@@ -48,28 +48,8 @@ function montaJogos(produtos, idAppend) {
     });
 }
 
-// function inserirCarrinho(id) {
-//     $.ajax({
-//         type: 'GET',
-//         url: `http://localhost:18025/session/add/${id}/1`,
-//         contentType: "application/json; charset=utf-8",
-//         success: function (data) {
-//             msgSucInseridoNoCarrinho();
-//             montaCardCarrinho();
-//             updateQtdeItensCar();
-//         }, error: function (data) {
-//             console.log(data);
-//             swal(
-//                 'Atenção!',
-//                 'Ocorreu um erro ao salvar o registro. Por favor, tente novamente!',
-//                 'error'
-//             );
-//         }
-//     });
-// }
-
 function openDetalhes(id) {
-    window.location = "paginaProduto/" + id;
+    window.location = "../paginaProduto/" + id;
 }
 
 function carrossel() {
@@ -231,4 +211,16 @@ function updateQtdeItensCar() {
         }
     });
 
+}
+
+function trocarImagem(event) {
+    let srcPrincipalAtual = $('#img-principal').attr('src');
+    let src = event.target.src;
+    $('#img-principal').attr("src", src);
+    let element = event.target;
+    element.setAttribute("src", srcPrincipalAtual);
+}
+
+function openLogin() {
+    $('#modalLogin').modal();
 }

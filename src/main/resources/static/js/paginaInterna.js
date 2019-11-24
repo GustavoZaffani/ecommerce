@@ -10,6 +10,7 @@ $(function () {
         buildProdutosRelacionados(produto.tipo);
         montaParcelas();
     });
+    initMasks();
     updateQtdeItensCar();
 });
 
@@ -56,14 +57,14 @@ function buildProdutosRelacionados(tipo) {
 
 function buildProdutoInterno() {
     $('#div-img-principal').append(`
-        <img class="h-90 max-width-90" src="${produto.imgCapa}" alt="${produto.nome}" id="img-principal">
+        <img class="h-90 max-width-90" src="../img/capas/capa${produto.id}.jpg" alt="${produto.nome}" id="img-principal">
     `);
     $('#div-img-complementares').append(`
-<!--        <img src="images/capasCompl/imgJogo1.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">-->
-<!--        <img src="images/capasCompl/imgJogo2.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">-->
-<!--        <img src="images/capasCompl/imgJogo3.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">-->
-<!--        <img src="images/capasCompl/imgJogo4.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">-->
-<!--        <img src="images/capasCompl/imgJogo5.png" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">-->
+        <img src="../img/capasCompl/imgJogo1.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">
+        <img src="../img/capasCompl/imgJogo2.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">
+        <img src="../img/capasCompl/imgJogo3.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">
+        <img src="../img/capasCompl/imgJogo4.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">
+        <img src="../img/capasCompl/imgJogo5.jpg" alt="" class="pointer img-secondary" onclick="trocarImagem(event)">
     `);
     $('#nomeJogo').text(produto.nome);
     $('#codJogo').text('Código: ' + produto.id);

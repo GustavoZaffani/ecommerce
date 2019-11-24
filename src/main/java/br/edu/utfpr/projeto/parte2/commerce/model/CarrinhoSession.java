@@ -9,6 +9,7 @@ import java.util.List;
 public class CarrinhoSession {
 
     private BigDecimal taxaEntrega;
-    private Endereco enderecoEntrega;
+    private Long idEnderecoEntrega;
     private List<CarrinhoItemSession> carrinhoItemSessions;
+    private String userCliente;
 }

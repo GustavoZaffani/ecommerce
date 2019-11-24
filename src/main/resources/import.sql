@@ -1,3 +1,56 @@
+-- INSERT USUÁRIO
+INSERT INTO usuario(nome, username, password) VALUES ('Administrador', 'admin','$2a$10$.PVIfB07x.SfMYTcToxL0.yxcLWU0GbS2NUO1W1QAvqMm/TsFhVem');
+INSERT INTO usuario(nome, username, password) VALUES ('Teste', 'teste','$2a$10$.PVIfB07x.SfMYTcToxL0.yxcLWU0GbS2NUO1W1QAvqMm/TsFhVem');
+
+-- INSERT PERMISSÃO
+INSERT INTO permissao (nome) values('ROLE_ADMIN');
+INSERT INTO permissao (nome) values('ROLE_CLIENTE');
+
+-- INSERT PERMISSÕES DOS USUÁRIOS
+INSERT INTO usuario_permissoes(usuario_id, permissoes_id) VALUES (1, 1);
+INSERT INTO usuario_permissoes(usuario_id, permissoes_id) VALUES (2, 1);
+
+-- INSERT CATEGORIA
+INSERT INTO categoria (descricao) VALUES ('Categoria 1');
+INSERT INTO categoria (descricao) VALUES ('Categoria 2');
+INSERT INTO categoria (descricao) VALUES ('Categoria 3');
+INSERT INTO categoria (descricao) VALUES ('Categoria 4');
+INSERT INTO categoria (descricao) VALUES ('Categoria 5');
+
+-- INSERT MARCA
+INSERT INTO marca (descricao) VALUES ('Marca 1');
+INSERT INTO marca (descricao) VALUES ('Marca 2');
+INSERT INTO marca (descricao) VALUES ('Marca 3');
+INSERT INTO marca (descricao) VALUES ('Marca 4');
+INSERT INTO marca (descricao) VALUES ('Marca 5');
+
+--INSERT PRODUTO
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('GTA V', 120, 180, 1, 2, 'P', 10, 12);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Mortal Kombat', 20, 200, 2, 3, 'P', 15, 6);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Red Dead Redemption', 30, 300, 2, 1, 'P', 20, 8);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('God of War', 40, 400, 3, 5, 'P', 25, 10);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('The Last of Us', 50, 500, 4, 4, 'P', 50, 3);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Uncharted 4', 10, 100, 1, 2, 'P', 10, 12);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Call of Duty', 20, 200, 2, 3, 'P', 15, 6);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('FarCry 4', 30, 300, 2, 1, 'P', 20, 8);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('GTA V', 40, 400, 3, 5, 'X', 25, 10);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Mortal Kombat', 50, 500, 4, 4, 'X', 50, 3);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Red Dead Redemption', 10, 100, 1, 2, 'X', 10, 12);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Tomb Raider', 20, 200, 2, 3, 'X', 15, 6);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Fifa 19', 30, 300, 2, 1, 'X', 20, 8);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Sniper Elite III', 40, 400, 3, 5, 'X', 25, 10);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Forza Horizon III', 10, 100, 1, 2, 'X', 10, 12);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Assassins Creed', 50, 500, 4, 4, 'X', 50, 3);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Ninja Gaiden 3', 40, 400, 3, 5, 'N', 25, 10);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Just Dance 2016', 50, 500, 4, 4, 'N', 50, 3);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Assassins Creed III', 10, 100, 1, 2, 'N', 10, 12);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('The Legend of Zelda', 20, 200, 2, 3, 'N', 15, 6);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Minecraft', 30, 300, 2, 1, 'N', 20, 8);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('DuckTales', 40, 400, 3, 5, 'N', 25, 10);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('Sonic Lost World', 50, 500, 4, 4, 'N', 50, 3);
+INSERT INTO produto (nome, preco_custo, preco_venda, marca_id, categoria_id, tipo, desc_a_vista, qtde_parcelas) VALUES ('The Smurfs 2', 10, 100, 1, 2, 'N', 10, 12);
+
+
 --INSERT PAIS
 INSERT INTO pais (id, nome, sigla) VALUES (1, 'Brasil', 'BR');
 
@@ -5603,3 +5656,4 @@ INSERT INTO permissao (nome) values('ROLE_CLIENTE');
 INSERT INTO CLIENTE (CPF, DT_NASC, NOME, PASSWORD, TEL_CEL, USERNAME) VALUES ('12345678909', to_date('2017/01/03','YYYY/MM/DD'), 'Gustavo Zaffani', '$2a$10$.PVIfB07x.SfMYTcToxL0.yxcLWU0GbS2NUO1W1QAvqMm/TsFhVem', '46999662233', 'teste');
 INSERT INTO CLIENTE_PERMISSOES VALUES (1, 2);
 INSERT INTO ENDERECO (BAIRRO, CEP, ENDERECO, NRO, TIPO, CIDADE_ID, CLIENTE_ID, ESTADO_ID) VALUES ('Vila Isabel', '85504000', 'Rua Nereu Ramos', '6969', 0, 101, 1, 2);
+INSERT INTO ENDERECO (BAIRRO, CEP, ENDERECO, NRO, TIPO, CIDADE_ID, CLIENTE_ID, ESTADO_ID) VALUES ('Vila Isabel', '85504000', 'Rua das Oliveiras', '420', 1, 101, 1, 2);

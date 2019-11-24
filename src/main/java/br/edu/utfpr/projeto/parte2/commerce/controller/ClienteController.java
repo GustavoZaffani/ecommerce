@@ -83,6 +83,14 @@ public class ClienteController {
         return clienteService.findByUsername(user).getEnderecosList();
     }
 
+    @GetMapping("endereco/{user}/{idEndereco}")
+    @ResponseBody
+    public Endereco findEnderecosByCliente(@PathVariable("user") String user,
+                                           @PathVariable("idEndereco") Long idEndereco) {
+        List<Endereco> enderecosList = clienteService.findByUsername(user).getEnderecosList();
+        return enderecosList.stream().filter(endereco -> endereco.getId() == idEndereco).collect(Collectors.toList()).get(0);
+    }
+
     @PostMapping("endereco/save/{cliente}")
     public ResponseEntity saveEnderecos(@PathVariable("cliente") String cliente,
                                         @RequestBody List<Endereco> enderecos) {

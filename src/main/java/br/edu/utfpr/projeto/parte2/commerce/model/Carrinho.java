@@ -40,7 +40,4 @@ public class Carrinho {
 
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
-
-    @Column(name = "obs", nullable = false)
-    private String obs;
 }
