@@ -1,5 +1,11 @@
 package br.edu.utfpr.projeto.parte2.commerce.model;
 
+import br.edu.utfpr.projeto.parte2.commerce.config.LocalDateDeserializer;
+import br.edu.utfpr.projeto.parte2.commerce.config.LocalDateSerializer;
+import br.edu.utfpr.projeto.parte2.commerce.enumeration.Situacao;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,8 +35,11 @@ public class Carrinho {
 
     @OneToMany(mappedBy = "carrinho",
             cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JsonManagedReference
     private List<CarrinhoItem> carrinhoItemList;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "dt_venda", nullable = false)
     private LocalDate dtVenda;
 
@@ -40,4 +49,7 @@ public class Carrinho {
 
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
+
+    @Column(name = "situacoa", nullable = false)
+    private Situacao situacao;
 }

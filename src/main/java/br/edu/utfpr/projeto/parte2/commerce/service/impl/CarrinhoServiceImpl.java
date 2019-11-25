@@ -1,5 +1,6 @@
 package br.edu.utfpr.projeto.parte2.commerce.service.impl;
 
+import br.edu.utfpr.projeto.parte2.commerce.enumeration.Situacao;
 import br.edu.utfpr.projeto.parte2.commerce.model.Carrinho;
 import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoItem;
 import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoItemSession;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +49,20 @@ public class CarrinhoServiceImpl extends CrudServiceImpl<Carrinho, Long>
         List<CarrinhoItem> carrinhoItems = buildItensCarrinho(carrinhoSession.getCarrinhoItemSessions());
         carrinhoItems.forEach(carrinhoItem -> carrinhoItem.setCarrinho(carrinho));
         carrinho.setCarrinhoItemList(carrinhoItems);
+        carrinho.setSituacao(Situacao.AA);
         this.save(carrinho);
+    }
+
+    @Override
+    public List<Carrinho> findByClienteUsernameEquals(String username) {
+        return carrinhoRepository.findByClienteUsernameEquals(username);
+    }
+
+    @Override
+    public void updateSituacao(Long idCarrinho, Situacao situacao) {
+        Carrinho c = this.findOne(idCarrinho);
+        c.setSituacao(situacao);
+        this.save(c);
     }
 
     private List<CarrinhoItem> buildItensCarrinho(List<CarrinhoItemSession> carrinhoItemSessions) {

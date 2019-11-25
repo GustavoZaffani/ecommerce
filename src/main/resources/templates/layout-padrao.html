@@ -82,9 +82,9 @@
                         <ul sec:authorize="isAuthenticated()" class="list-group list-group-flush">
                             <li class="list-group-item"><a onclick="openForm()" class="color-default">Minha Conta</a>
                             </li>
-                            <li class="list-group-item"><a href="" class="color-default">Meus Pedidos</a></li>
-                            <li class="list-group-item text-right"><a th:href="@{/logout}"><i title="Sair"
-                                                                                              class="fa fa-2x fa-sign-out pointer"></i></a>
+                            <li class="list-group-item"><a onclick="openScreenPedidos()" class="color-default">Meus Pedidos</a></li>
+                            <li class="list-group-item text-right"><a th:href="@{/logout}">
+                                <i title="Sair" class="fa fa-2x fa-sign-out pointer"></i></a>
                             </li>
                         </ul>
                     </div>

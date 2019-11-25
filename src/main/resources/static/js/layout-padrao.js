@@ -51,6 +51,10 @@ function initMasks() {
     $('#confCep').mask('99999-999');
 }
 
+function openScreenPedidos() {
+    window.location = "/cliente/pedidos";
+}
+
 function openForm() {
     findDadosCliente(function (cliente) {
         if (cliente != null) {

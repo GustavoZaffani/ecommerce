@@ -1,5 +1,6 @@
 package br.edu.utfpr.projeto.parte2.commerce.controller;
 
+import br.edu.utfpr.projeto.parte2.commerce.enumeration.Situacao;
 import br.edu.utfpr.projeto.parte2.commerce.model.Carrinho;
 import br.edu.utfpr.projeto.parte2.commerce.model.CarrinhoSession;
 import br.edu.utfpr.projeto.parte2.commerce.service.CarrinhoService;
@@ -37,5 +38,29 @@ public class CarrinhoController {
     @ResponseBody
     public List<Carrinho> findAll() {
         return carrinhoService.findAll();
+    }
+
+    @GetMapping("list/{user}")
+    @ResponseBody
+    public List<Carrinho> findCarrinhoByCliente(@PathVariable("user") String user) {
+        return carrinhoService.findByClienteUsernameEquals(user);
+    }
+
+    @GetMapping("{id}")
+    @ResponseBody
+    public Carrinho findCarrinhoById(@PathVariable("id") Long idCarrinho) {
+        return carrinhoService.findOne(idCarrinho);
+    }
+
+    @GetMapping("update-situacao/{id}/{situacao}")
+    @ResponseBody
+    public ResponseEntity updateSituacao(@PathVariable("id") Long id,
+                                         @PathVariable("situacao") String situacao) {
+        try {
+            carrinhoService.updateSituacao(id, Situacao.valueOf(situacao));
+            return ResponseEntity.ok(HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+        }
     }
 }

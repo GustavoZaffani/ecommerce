@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout-padrao}">
+<head>
+    <link rel="stylesheet" th:href="@{/vendors/slick/slick-theme.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/slick/slick.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/pedidos.css}"/>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}"/>
+</head>
+<body>
+
+<section layout:fragment="conteudo">
+
+    <div class="container mt-100px">
+        <div class="card" style="max-height: none !important">
+            <div class="card-header d-flex justify-content-between">
+                <h6 class="text-center font-weight-bolder color-default font-size-12">Meus Pedidos</h6>
+            </div>
+
+            <div class="card-body">
+                <div id="msgSemPedidos" class="text-center mt-5">
+                    <i class="fa fa-2x fa-frown-o"></i>
+                    <h6>Você ainda não realizou nenhuma compra em nossa loja! Clique <a th:href="@{/}">aqui</a> e realize uma
+                        compra agora mesmo!</h6>
+                </div>
+                <table class="table table-striped table-responsive-md" id="pedidos">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Data Compra</th>
+                        <th class="text-center">Qtde</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-center">Situação</th>
+                        <th class="text-center">Info</th>
+                    </tr>
+                    </thead>
+                    <tbody id="listaPedidos"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalItens" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">Informações do Pedido</h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th class="text-center">Cod</th>
+                            <th class="text-center">Descrição</th>
+                            <th class="text-center">Vlr Unit</th>
+                            <th class="text-center">Qtde</th>
+                            <th class="text-center">Vlr Total</th>
+                        </tr>
+                        </thead>
+                        <tbody id="itens"></tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-md-12" id="moreInfo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/vendors/slick/slick.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/util.js}"></script>
+    <script type="text/javascript" th:src="@{/js/pedido.js}"></script>
+</th:block>
+
+</body>
+</html>

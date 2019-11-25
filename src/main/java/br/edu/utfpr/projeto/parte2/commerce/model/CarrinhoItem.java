@@ -1,5 +1,6 @@
 package br.edu.utfpr.projeto.parte2.commerce.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,6 +33,7 @@ public class CarrinhoItem {
     private BigDecimal valor;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "carrinho_id", referencedColumnName = "id")
     private Carrinho carrinho;
 }

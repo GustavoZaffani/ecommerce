@@ -118,4 +118,8 @@ public class ClienteController {
         }
     }
 
+    @GetMapping("pedidos")
+    public String listPedidos() {
+        return "pedidos";
+    }
 }
