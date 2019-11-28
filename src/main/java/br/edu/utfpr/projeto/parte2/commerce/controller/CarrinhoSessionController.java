@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,10 +98,11 @@ public class CarrinhoSessionController {
     }
 
     @GetMapping("clear")
-    public String clearItensCarrinho(@ModelAttribute("carrinhoList") CarrinhoSession carrinhoSession) {
-        CarrinhoSession carrinhoSession1 = new CarrinhoSession();
-        carrinhoSession1.setCarrinhoItemSessions(new ArrayList<>());
-        carrinhoSession = carrinhoSession1;
+    public String clearItensCarrinho(Model model) {
+
+        CarrinhoSession carrinhoSession = new CarrinhoSession();
+        carrinhoSession.setCarrinhoItemSessions(new ArrayList<>());
+        model.addAttribute("carrinhoList", carrinhoSession);
         return "redirect:/carrinho";
     }
 

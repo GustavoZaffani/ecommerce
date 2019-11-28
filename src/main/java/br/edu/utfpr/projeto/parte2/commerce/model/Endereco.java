@@ -2,10 +2,7 @@ package br.edu.utfpr.projeto.parte2.commerce.model;
 
 import br.edu.utfpr.projeto.parte2.commerce.enumeration.TipoEndereco;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -17,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@ToString(of = {"id", "endereco"})
 public class Endereco {
 
     @Id
