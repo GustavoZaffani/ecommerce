@@ -3,6 +3,7 @@ var exit = true;
 
 $(function () {
     buildCompletes();
+    buildCategorias();
     montaCardCarrinho();
     initMasks();
     $('html').mouseleave(function () {
@@ -17,6 +18,35 @@ function msgExit() {
     }
 }
 
+function buildCategorias() {
+    $('div>#drop-cat').remove();
+    $.get('http://localhost:8025/categoria/api/find-all', function (categorias) {
+        if (categorias != null) {
+            categorias.forEach(categoria => {
+                $('#drop-cat').append(`
+                    <a class="dropdown-item" id="dropDownXbox" onclick="findByCategoria(${categoria.id})">${categoria.descricao}</a> 
+                `);
+            });
+        }
+    });
+}
+
+function findByCategoria(idCategoria) {
+    $('.jogos').slick("unslick");
+    $('.card-jogo').remove();
+    findAllJogosPs4ByCategoria(idCategoria, function (retorno) {
+        montaJogos(retorno, "#gamePs");
+    });
+    findAllJogosXboxByCategoria(idCategoria, function (retorno) {
+        montaJogos(retorno, "#gameXbox");
+    });
+    findAllJogosNintendoByCategoria(idCategoria, function (retorno) {
+        montaJogos(retorno, "#gameNintendo");
+        setTimeout(function () {
+            carrossel();
+        }, 500);
+    });
+}
 
 function desmontaCardCarrinho() {
     $('li#itemCar').remove();

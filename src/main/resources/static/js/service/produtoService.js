@@ -34,6 +34,29 @@ function findAllJogosPs4(callbackRetorno) {
     });
 }
 
+function findAllJogosPs4ByCategoria(id, callbackRetorno) {
+    var produtosPs4 = new Array();
+    $.ajax({
+        url: 'http://localhost:8025/produto/api/produtos/tipo/categoria',
+        contentType: 'application/json',
+        type: 'GET',
+        data: {'tipo': 'P',
+               'categoria' : id,
+        },
+        dataType: 'json',
+        success: function (produtos) {
+            if (produtos != null) {
+                produtos.forEach((product) => {
+                    produto = buildProduto(product);
+                    produtosPs4.push(produto);
+                });
+                callbackRetorno(produtosPs4);
+            }
+        }
+    });
+}
+
+
 function findAllJogosXbox(callbackRetorno) {
     var produtoXbox = new Array();
     $.ajax({
@@ -54,6 +77,28 @@ function findAllJogosXbox(callbackRetorno) {
     });
 }
 
+function findAllJogosXboxByCategoria(idCategoria, callbackRetorno) {
+    var produtoXbox = new Array();
+    $.ajax({
+        url: 'http://localhost:8025/produto/api/produtos/tipo/categoria',
+        contentType: 'application/json',
+        type: 'GET',
+        data: {'tipo': 'X',
+               'categoria' : idCategoria,
+        },
+        dataType: 'json',
+        success: function (produtos) {
+            if (produtos != null) {
+                produtos.forEach((product) => {
+                    produto = buildProduto(product);
+                    produtoXbox.push(produto);
+                });
+                callbackRetorno(produtoXbox);
+            }
+        }
+    });
+}
+
 function findAllJogosNintendo(callbackRetorno) {
     var produtoNintendo = new Array();
     $.ajax({
@@ -61,6 +106,28 @@ function findAllJogosNintendo(callbackRetorno) {
         contentType: 'application/json',
         type: 'GET',
         data: {'tipo': 'N'},
+        dataType: 'json',
+        success: function (produtos) {
+            if (produtos != null) {
+                produtos.forEach((product) => {
+                    produto = buildProduto(product);
+                    produtoNintendo.push(produto);
+                });
+                callbackRetorno(produtoNintendo);
+            }
+        }
+    });
+}
+
+function findAllJogosNintendoByCategoria(idCategoria, callbackRetorno) {
+    var produtoNintendo = new Array();
+    $.ajax({
+        url: 'http://localhost:8025/produto/api/produtos/tipo/categoria',
+        contentType: 'application/json',
+        type: 'GET',
+        data: {'tipo': 'N',
+               'categoria' : idCategoria
+        },
         dataType: 'json',
         success: function (produtos) {
             if (produtos != null) {

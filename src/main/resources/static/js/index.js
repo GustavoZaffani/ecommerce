@@ -8,6 +8,7 @@ $(function () {
 });
 
 function loadProdutos() {
+    $('.card-jogo').remove();
     findAllJogosPs4(function (retorno) {
         montaJogos(retorno, "#gamePs");
     });
