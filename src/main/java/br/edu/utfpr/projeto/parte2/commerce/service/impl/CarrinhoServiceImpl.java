@@ -65,6 +65,11 @@ public class CarrinhoServiceImpl extends CrudServiceImpl<Carrinho, Long>
         this.save(c);
     }
 
+    @Override
+    public Long getMaxId() {
+        return carrinhoRepository.getMaxId();
+    }
+
     private List<CarrinhoItem> buildItensCarrinho(List<CarrinhoItemSession> carrinhoItemSessions) {
         List<CarrinhoItem> toReturn = new ArrayList<>();
         carrinhoItemSessions.forEach(carrinhoItemSession -> {

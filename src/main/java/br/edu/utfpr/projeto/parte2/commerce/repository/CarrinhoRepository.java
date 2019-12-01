@@ -9,4 +9,7 @@ import java.util.List;
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Long> {
 
     List<Carrinho> findByClienteUsernameEquals(String username);
+
+    @Query("SELECT MAX(c.id) FROM Carrinho c")
+    Long getMaxId();
 }

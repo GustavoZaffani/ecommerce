@@ -120,7 +120,7 @@
                 <h5 class="modal-title text-center">Login</h5>
             </div>
             <div class="modal-body">
-                <form id="formLogin" th:action="@{/login}" method="POST">
+                <form id="formLogin" th:action="@{/login}" method="POST" onsubmit="validaLogin()">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -145,7 +145,10 @@
                     </div>
                     <div class="row d-flex justify-content-center">
                         <div class="text-center mt-2">
-                            <button class="btn btn-primary">Login <i class="fas fa-sign-in-alt ml-1"></i></button>
+                            <button class="btn btn-primary"
+                                    type="submit"> Login
+                                <i class="fas fa-sign-in-alt ml-1"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="alert alert-danger"
@@ -153,6 +156,20 @@
                         O usuário e/ou senha inválido(s)!
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalExit" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content mt-100px">
+            <div class="modal-header d-block">
+                <h5 class="modal-title text-center">Hey, espere...</h5>
+            </div>
+            <div class="modal-body text-center d-flex align-items-center justify-content-center">
+                <h6 class="font-size-11">Fique mais e aproveite nossas ofertas.</h6>
+                <img class="w-100p" th:src="@{/img/mario.png}" alt="Mario Bros">
             </div>
         </div>
     </div>
@@ -216,35 +233,8 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Gênero</label>
-                                        <div class="form-control border-0">
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio"
-                                                       class="custom-control-input"
-                                                       id="cadGeneroM"
-                                                       checked
-                                                       value="M"
-                                                       name="cadGenero">
-                                                <label class="custom-control-label"
-                                                       for="cadGeneroM">Masculino</label>
-                                            </div>
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio"
-                                                       class="custom-control-input"
-                                                       id="cadGeneroF"
-                                                       value="F"
-                                                       name="cadGenero">
-                                                <label class="custom-control-label"
-                                                       for="cadGeneroF">Feminino</label>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                </div>
-
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="cadCpf">CPF *</label>
                                         <input id="cadCpf"
@@ -253,10 +243,7 @@
                                                type="text">
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="cadTelRes">Telefone Res.</label>
                                         <input id="cadTelRes"
@@ -265,7 +252,7 @@
                                                type="text">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="cadTelCel">Telefone Cel. *</label>
                                         <input id="cadTelCel"

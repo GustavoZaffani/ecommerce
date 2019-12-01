@@ -49,12 +49,16 @@ function findObjectsEstadoAndCidade(idEstado, idCidade, onComplete) {
 function saveEndereco() {
     buildEndereco(function (callback) {
         if (callback) {
-            findEnderecos(function (callback) {
-                if (callback) {
-                    enderecosList.push(endereco);
-                    save();
-                }
-            });
+            if (endereco.id != null) {
+                enderecosList.forEach((enderecoo, index) => {
+                    if (enderecoo.id == Number(endereco.id)) {
+                        console.log(index);
+                        enderecosList.splice(index, 1);
+                    }
+                });
+            }
+            enderecosList.push(endereco);
+            save();
         }
     });
 }
@@ -71,6 +75,7 @@ function save() {
                 text: 'Registro salvo com sucesso!',
                 type: 'success'
             }, function () {
+                clearForm();
                 window.location = '/cliente/endereco';
             });
         }, error: function (data) {
@@ -83,8 +88,6 @@ function save() {
         }
     });
 }
-
-
 
 function excluir(id) {
     $.ajax({
@@ -133,26 +136,45 @@ function buildCardEnderecos() {
             if (enderecosList != null) {
                 $('#titleEnderecos').show();
                 enderecosList.forEach(endereco => {
-                    $('#enderecos').append(`
-                        <div id="card-endereco" class="card my-2 card-endereco">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bolder">${getTipoEndereco(endereco.tipoEndereco)}</h6>
-                                    <div>
-                                        <i class="fa fa-pencil pointer mx-2" onclick="edit(${endereco.id})"></i>
-                                        <i class="fa fa-trash pointer" onclick="excluir(${endereco.id})"></i>
-                                    </div>                            
+                    if (endereco.tipoEndereco == 'P') {
+                        $('#enderecos').append(`
+                            <div id="card-endereco" class="card my-2 card-endereco">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="font-weight-bolder">${getTipoEndereco(endereco.tipoEndereco)}</h6>                            
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body" style="height: auto;">
-                                <p><strong>Rua: </strong>${endereco.endereco}</p>
-                                <p><strong>Bairro: </strong>${endereco.bairro}</p>
-                                <p><strong>Cidade: </strong>${endereco.cidade.nome}</p>
-                                <p><strong>Estado: </strong>${endereco.estado.nome}</p>
-                                <p><strong>Número: </strong>${endereco.nro}</p>
-                            </div>
-                        </div> 
+                                <div class="card-body" style="height: auto;">
+                                    <p><strong>Rua: </strong>${endereco.endereco}</p>
+                                    <p><strong>Bairro: </strong>${endereco.bairro}</p>
+                                    <p><strong>Cidade: </strong>${endereco.cidade.nome}</p>
+                                    <p><strong>Estado: </strong>${endereco.estado.nome}</p>
+                                    <p><strong>Número: </strong>${endereco.nro}</p>
+                                </div>
+                            </div> 
                         `);
+                    } else {
+                        $('#enderecos').append(`
+                            <div id="card-endereco" class="card my-2 card-endereco">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="font-weight-bolder">${getTipoEndereco(endereco.tipoEndereco)}</h6>
+                                        <div>
+                                            <i class="fa fa-pencil pointer mx-2" onclick="edit(${endereco.id})"></i>
+                                            <i class="fa fa-trash pointer" onclick="excluir(${endereco.id})"></i>
+                                        </div>                            
+                                    </div>
+                                </div>
+                                <div class="card-body" style="height: auto;">
+                                    <p><strong>Rua: </strong>${endereco.endereco}</p>
+                                    <p><strong>Bairro: </strong>${endereco.bairro}</p>
+                                    <p><strong>Cidade: </strong>${endereco.cidade.nome}</p>
+                                    <p><strong>Estado: </strong>${endereco.estado.nome}</p>
+                                    <p><strong>Número: </strong>${endereco.nro}</p>
+                                </div>
+                            </div> 
+                        `);
+                    }
                 });
             } else {
                 $('#msgSemEndereco').show();

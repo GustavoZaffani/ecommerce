@@ -11,7 +11,6 @@ function findPedidosByCliente() {
     $.get(`http://localhost:18025/carrinho/list/${$('#usuario').text()}`, function (carrinhos) {
         if (carrinhos != null) {
             pedidosCliente = carrinhos;
-            console.log(carrinhos);
             $('tbody>#itemPedido').remove();
             carrinhos.forEach(carrinho => {
                 $('#listaPedidos').append(`
@@ -88,6 +87,7 @@ function verificaPedidos(hasPedido) {
 function buildTableItensCarrinho(id) {
     $('tbody>#item').remove();
     $('div>#info').remove();
+    $('div>#btn-rep').remove();
     pedidosCliente.forEach(pedido => {
         if (pedido.id == id) {
             pedido.carrinhoItemList.forEach(item => {
@@ -108,6 +108,12 @@ function buildTableItensCarrinho(id) {
                     <h6 class="border-info-top" style="margin-top: 10px">Taxa de frete</h6>
                     <span>R$ ${formataMoeda(pedido.taxaFrete)}</span>
                 </div>            
+            `);
+            $('#btn-report').append(`
+                <div id="btn-rep">
+                   <i class="fa fa-eye pointer mx-2" onclick="viewComprovante(${pedido.id})" title="Visualizar Comprovante"></i>
+                   <i class="fa fa-download pointer" onclick="downComprovante(${pedido.id})" title="Download Comprovante"></i>
+                </div>
             `);
         }
     });

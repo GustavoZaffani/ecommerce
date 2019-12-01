@@ -113,7 +113,7 @@ function confirmarDadosGerais() {
             data: JSON.stringify(carrinho),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                // deletarCarrinho();
+                deletarCarrinho(false);
                 dadosConfirmacaoIsOk = true;
                 step('#dadosFinais');
             }, error: function (data) {
@@ -156,7 +156,7 @@ function montaListaJogos() {
                             <div class="d-flex align-items-center">
                                 <i onclick="upDownQtdeCarrinhoItem(true, ${itemCarrinho.produto.id})" 
                                     class="fa fa-2x fa-arrow-circle-o-up pointer" title="Aumentar"></i>
-                                <span class="px-2">${itemCarrinho.qtde}</span>
+                                <span class="px-2" id="qtdeItem">${itemCarrinho.qtde}</span>
                                 <i onclick="upDownQtdeCarrinhoItem(false, ${itemCarrinho.produto.id}, '` + itemCarrinho.produto.tipo + `')" 
                                     class="fa fa-2x fa-arrow-circle-o-down pointer" title="Diminuir"></i>                    
                             </div>
@@ -257,7 +257,6 @@ function opcoesFrete() {
 }
 
 function finalizaCarrinho() {
-    validaLoginFinally();
     $('#modalFinalizaCarrinho').modal();
 }
 
@@ -310,7 +309,6 @@ function step(stepChoosed) {
 }
 
 function loadOutrasInformacoes() {
-    $('#freteEscolhido').text("Frete escolhido: " + $('input[name="cadFrete"]:checked').val());
     if (localStorage.getItem('frete') == 0) {
         $('#valorFreteEscolhido').text("Valor do Frete: Grátis");
     } else {
@@ -347,7 +345,7 @@ function buildEnderecosChoose() {
     findEnderecos(function (callback) {
         if (callback) {
             enderecosList.forEach(endereco => {
-                $('#dadosCliente').append(`
+                $('#dadosCli').append(`
                     <div id="card-endereco" class="card my-2 card-endereco" style="width: 45% !important;">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
@@ -371,7 +369,7 @@ function buildEnderecosChoose() {
                   `);
             });
 
-            $('#dadosCliente').append(`
+            $('#dadosCliBtn').append(`
                 </div>
                 <div class="d-flex justify-content-center">
                      <button type="button"
@@ -386,7 +384,6 @@ function buildEnderecosChoose() {
 }
 
 function setEnderecoCarrinho(idEndereco) {
-    console.log(idEndereco);
     $.get(`http://localhost:18025/session/endereco/save/${idEndereco}`, function () {
         // não retorna nada, só salva
     });
@@ -407,23 +404,16 @@ function excluirCarrinho() {
     $('#modalConfirmDelete').modal();
 }
 
-function deletarCarrinho() {
+function deletarCarrinho(reload) {
     $.get('http://localhost:18025/session/clear', function () {
         $('#modalConfirmDelete').hide();
-        window.location.reload();
+        if (reload) {
+            window.location.reload();
+        }
     });
-}
-
-function confirmaDados(event) {
-    event.preventDefault();
-    validaDadosCliente();
-}
-
-function finishCar() {
-    dropCarrinho();
-    goToHome();
 }
 
 function openScreenAddress() {
     window.location = "cliente/endereco";
 }
+

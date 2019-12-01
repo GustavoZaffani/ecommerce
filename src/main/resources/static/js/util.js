@@ -224,3 +224,23 @@ function trocarImagem(event) {
 function openLogin() {
     $('#modalLogin').modal();
 }
+
+function downComprovante(id) {
+    if (id != null) {
+        window.location = `../carrinho/comprovante/download/${id}`;
+    } else {
+        $.get('http://localhost:18025/carrinho/max', function (lastId) {
+            window.location = `../carrinho/comprovante/download/${lastId}`;
+        });
+    }
+}
+
+function viewComprovante(id) {
+    if (id != null) {
+        window.location = `../carrinho/comprovante/visualizar/${id}`;
+    } else {
+        $.get('http://localhost:18025/carrinho/max', function (lastId) {
+            window.location = `../carrinho/comprovante/visualizar/${lastId}`;
+        });
+    }
+}

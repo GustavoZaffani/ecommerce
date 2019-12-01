@@ -1,4 +1,4 @@
-function validaLogin(resetCar) {
+function validaLogin() {
     $('#formLogin').validate({
         rules: {
             usuarioLogin: {
@@ -17,35 +17,14 @@ function validaLogin(resetCar) {
             }
         },
         submitHandler: function(form) {
-            let usuario = $('#usuarioLogin').val();
-            let senha = $('#senhaLogin').val();
-            findUsuarioByUsuarioESenha(usuario, senha, resetCar);
-        }
-    });
-}
+            $.ajax({
+                url: '/login',
+                contentType: 'application/json',
+                type: 'POST',
+                success: function (produto) {
 
-function validaLoginFinally() {
-    $('#formLoginFinaliza').validate({
-        rules: {
-            usuarioLoginFinaliza: {
-                required: true
-            },
-            senhaLoginFinaliza: {
-                required: true
-            }
-        },
-        messages: {
-            usuarioLoginFinaliza: {
-                required: "Campo de preenchimento obrigatório!"
-            },
-            senhaLoginFinaliza: {
-                required: "Campo de preenchimento obrigatório!"
-            }
-        },
-        submitHandler: function(form) {
-            let usuario = $('#usuarioLoginFinaliza').val();
-            let senha = $('#senhaLoginFinaliza').val();
-            findUsuarioByUsuarioESenha(usuario, senha, false);
+                }
+            });
         }
     });
 }

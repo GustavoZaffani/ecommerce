@@ -1,20 +1,23 @@
 var cliente;
 var endereco = new Array();
 var endPrincipal;
+var endAux;
+var listAux = new Array();
 
 function saveUsuario() {
 
     buildEndereco(function (callback) {
        if (callback) {
+           listAux.push(endAux);
            cliente = new Cliente(
-               null,
+               cliente != null ? cliente.id : null,
                $('#cadNome').val(),
                removeSimbolos($('#cadCpf').val()),
                $('#cadDtNasc').val(),
                removeSimbolos($('#cadTelRes').val()),
                removeSimbolos($('#cadTelCel').val()),
                $('#cadObs').val(),
-               endereco,
+               cliente != null ? cliente.enderecosList : listAux,
                $('#cadUsuario').val(),
                $('#cadSenha').val()
            );
@@ -49,18 +52,31 @@ function buildEndereco(callback) {
     let idEstado = $('#estado').val().split(" ");
     let idCidade = $('#cidade').val().split(" ");
 
-    endPrincipal = new Endereco(
-        null,
+    endAux = new Endereco(
+        endPrincipal != null ? endPrincipal.id : null,
         $('#cadEndRua').val(),
         $('#cadEndBairro').val(),
         $('#cadEndNro').val(),
         null,
         null,
-        removeSimbolos($('#cadEndCep').val())
+        removeSimbolos($('#cadEndCep').val()),
+        endPrincipal != null ? endPrincipal.tipoEndereco : null
     );
+
+    if (cliente != null) {
+        cliente.enderecosList.forEach((end, index) => {
+            if (end.id == endPrincipal.id) {
+                cliente.enderecosList.splice(index, 1);
+
+            }
+        });
+    }
+
     findObjectsEstadoAndCidade(idEstado[0], idCidade[0], function (complete) {
         if (complete) {
-            endereco.push(endPrincipal);
+            if (cliente != null) {
+                cliente.enderecosList.push(endAux);
+            }
             callback(complete);
         }
     });
@@ -68,9 +84,9 @@ function buildEndereco(callback) {
 
 function findObjectsEstadoAndCidade(idEstado, idCidade, onComplete) {
     $.get(`http://localhost:8025/fornecedor/estado/${idEstado}`, function (estado) {
-        endPrincipal.estado = estado;
+        endAux.estado = estado;
         $.get(`http://localhost:8025/fornecedor/cidade/${idCidade}`, function (cidade) {
-            endPrincipal.cidade = cidade;
+            endAux.cidade = cidade;
             onComplete(true);
         });
     });
@@ -115,7 +131,7 @@ function buildCliente(clienteBd, callback) {
                 clienteBd.telFixo,
                 clienteBd.telCel,
                 clienteBd.observacao,
-                endereco,
+                clienteBd.enderecosList,
                 clienteBd.username,
                 null
             );
@@ -126,15 +142,19 @@ function buildCliente(clienteBd, callback) {
 }
 
 function buildEnderecoBd(clienteBd, onComplete) {
-    endPrincipal = new Endereco (
-        clienteBd.enderecosList[0].id,
-        clienteBd.enderecosList[0].endereco,
-        clienteBd.enderecosList[0].bairro,
-        clienteBd.enderecosList[0].nro,
-        clienteBd.enderecosList[0].estado,
-        clienteBd.enderecosList[0].cidade,
-        clienteBd.enderecosList[0].cep
-    );
-    endereco.push(endPrincipal);
+    clienteBd.enderecosList.forEach(ends => {
+        if (ends.id == 1) {
+            endPrincipal = new Endereco (
+                ends.id,
+                ends.endereco,
+                ends.bairro,
+                ends.nro,
+                ends.estado,
+                ends.cidade,
+                ends.cep,
+                ends.tipoEndereco
+            );
+        }
+    });
     onComplete(true);
 }

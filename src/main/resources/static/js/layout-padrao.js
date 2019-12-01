@@ -1,10 +1,22 @@
 var totalCarrinho = 0;
+var exit = true;
 
 $(function () {
     buildCompletes();
     montaCardCarrinho();
     initMasks();
+    $('html').mouseleave(function () {
+        msgExit();
+    });
 });
+
+function msgExit() {
+    if (sessionStorage.getItem('exit') == null || sessionStorage.getItem('exit') == true) {
+        sessionStorage.setItem('exit', false);
+        $('#modalExit').modal();
+    }
+}
+
 
 function desmontaCardCarrinho() {
     $('li#itemCar').remove();
@@ -60,22 +72,29 @@ function openForm() {
         if (cliente != null) {
             $('#cadNome').val(cliente.nome);
             $('#cadDtNasc').val(cliente.dtNascimento);
-            //$('input:radio[name="cadGenero"]').filter('[value="'+ usuarioLogado.genero +'"]').attr('checked', true);
             $('#cadCpf').val(cliente.cpf);
             $('#cadTelRes').val(cliente.telFixo);
             $('#cadTelCel').val(cliente.telCel);
             $('#cadUsuario').val(cliente.username);
-            $('#cadEndRua').val(cliente.enderecosList[0].endereco);
-            $('#cadEndBairro').val(cliente.enderecosList[0].bairro);
-            $('#cadEndCep').val(cliente.enderecosList[0].cep);
-            $('#cadEndNro').val(cliente.enderecosList[0].nro);
-            $('#cidade').val(cliente.enderecosList[0].cidade.id);
-            $('#estado').val(cliente.enderecosList[0].estado.id);
+            getEnderecoPrincipal(cliente);
             $('#cadEndObs').val(cliente.observacao);
             findDadosOnEdit();
             initMasks();
         }
         openModalCadUsuario(false);
+    });
+}
+
+function getEnderecoPrincipal(cliente) {
+    cliente.enderecosList.forEach(ends => {
+        if (ends.id == 1) {
+            $('#cadEndRua').val(ends.endereco);
+            $('#cadEndBairro').val(ends.bairro);
+            $('#cadEndCep').val(ends.cep);
+            $('#cadEndNro').val(ends.nro);
+            $('#cidade').val(ends.cidade.id);
+            $('#estado').val(ends.estado.id);
+        }
     });
 }
 

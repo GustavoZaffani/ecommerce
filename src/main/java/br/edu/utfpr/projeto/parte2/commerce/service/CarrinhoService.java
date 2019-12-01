@@ -13,4 +13,6 @@ public interface CarrinhoService extends CrudService<Carrinho, Long> {
     List<Carrinho> findByClienteUsernameEquals(String username);
 
     void updateSituacao(Long idCarrinho, Situacao situacao);
+
+    Long getMaxId();
 }

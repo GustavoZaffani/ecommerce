@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +41,10 @@ public class ClienteController {
         permissoes.add(permissaoService.findOne(2));
         cliente.getEnderecosList().forEach(endereco -> {
             endereco.setCliente(cliente);
-            endereco.setTipoEndereco(TipoEndereco.P);
+            if (endereco.getId() == null ||
+                    endereco.getId() == 1) {
+                endereco.setTipoEndereco(TipoEndereco.P);
+            }
         });
         cliente.setPermissoes(permissoes);
         cliente.setPassword(new BCryptPasswordEncoder().encode(cliente.getPassword()));
@@ -96,7 +98,8 @@ public class ClienteController {
                                         @RequestBody List<Endereco> enderecos) {
         try {
             Cliente cli = clienteService.findByUsername(cliente);
-            cli.setEnderecosList(enderecos);
+            cli.getEnderecosList().clear();
+            cli.getEnderecosList().addAll(enderecos);
             cli.getEnderecosList().forEach(endereco -> endereco.setCliente(cli));
             clienteService.save(cli);
             return new ResponseEntity(HttpStatus.OK);

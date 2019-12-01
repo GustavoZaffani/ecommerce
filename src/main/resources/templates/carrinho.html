@@ -71,7 +71,10 @@
                                         <span class="circle" id="iconDadosCliente">1</span>
                                         <span class="label">Dados do Cliente</span>
                                     </a>
-                                    <div id="dadosCliente" class="step-content"></div>
+                                    <div id="dadosCliente" class="step-content">
+                                        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" id="dadosCli"></div>
+                                        <div id="dadosCliBtn"></div>
+                                    </div>
                                 </li>
 
                                 <li id="liDadosCompra">
@@ -125,7 +128,6 @@
                                         <div>
                                             <h6 class="text-center font-weight-bold border-title-confirm">Outras
                                                 Informações</h6>
-                                            <p id="freteEscolhido"></p>
                                             <p id="valorFreteEscolhido"></p>
                                             <p id="valorCompraSemFrete"></p>
                                             <p class="font-weight-bolder" id="vlrFinalDaCompra"></p>
@@ -150,9 +152,14 @@
                                         <p class="text-center">Compra realizada com sucesso! :)</p>
                                         <div class="d-flex justify-content-center">
                                             <button type="button"
-                                                    class="btn btn-primary"
-                                                    onclick="finishCar()">
-                                                Finalizar
+                                                    onclick="downComprovante(null)"
+                                                    class="btn btn-primary">
+                                                Download do comprovante
+                                            </button>
+                                            <button type="button"
+                                                    onclick="viewComprovante(null)"
+                                                    class="btn btn-primary">
+                                                Visualizar comprovante
                                             </button>
                                         </div>
                                     </div>
@@ -177,7 +184,7 @@
                 </div>
 
                 <div class="modal-footer flex-center">
-                    <a href="#!" class="btn btn-outline-primary" onclick="deletarCarrinho()">Sim</a>
+                    <a href="#!" class="btn btn-outline-primary" onclick="deletarCarrinho(true)">Sim</a>
                     <a type="button" class="btn btn-primary" data-dismiss="modal">Não</a>
                 </div>
             </div>

@@ -53,6 +53,9 @@ public class CarrinhoSessionController {
             carrinhoItemSession.setIdProduto(id);
             carrinhoItemSession.setQtde(qtde);
             carrinhoSession.getCarrinhoItemSessions().add(carrinhoItemSession);
+        } else {
+            carrinhoSession.getCarrinhoItemSessions().removeIf(
+                    carrinhoItemSession -> carrinhoItemSession.getQtde() == 0);
         }
         return "redirect:/";
     }
